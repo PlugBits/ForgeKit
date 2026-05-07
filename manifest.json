@@ -1,6 +1,6 @@
 {
-  "name": "Simple Quote Tools",
-  "short_name": "QuoteTools",
+  "name": "Factory Calc Tools",
+  "short_name": "FactoryCalc",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#f3f6fb",

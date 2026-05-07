@@ -1,19 +1,44 @@
-# Simple Quote Tools
+# Factory Calc Tools
 
-GitHub Pagesで配布できる、製造業向けのシンプルな見積補助PWAです。
+A lightweight multilingual PWA for factory calculations.
 
-## 機能
+## Languages
 
-- 見積: 溶接、マシニング、旋盤、プレス加工
-- 重量計算: 板材、丸棒、角材、六角材、丸パイプ、角パイプ
-- 単位換算: 長さ、重量、圧力、温度
-- 設定: 時間単価、材質密度
+- English
+- Japanese
+- Thai
+- Indonesian
+- Simplified Chinese
+
+## Features
+
+- Unit conversion
+  - Length, weight, pressure, temperature, area, volume
+- Weight calculator
+  - Plate / flat bar
+  - Round bar
+  - Square / rectangular bar
+  - Hex bar
+  - Round pipe
+  - Square / rectangular pipe
+- Welding time calculator
+  - Total weld length
+  - Welding speed
+  - Assist / move time
+  - Gas usage
+  - Wire usage
+- Machining time calculator
+  - Milling
+  - Turning
+  - Drilling
 
 ## GitHub Pages
 
-1. このフォルダの中身をGitHubリポジトリにアップロード
-2. Settings → Pages
-3. Branch: main / root を選択
-4. 表示されたURLを開く
+1. Upload all files in this folder to your GitHub repository.
+2. Open Settings → Pages.
+3. Select Branch: main and Folder: root.
+4. Open the generated URL.
 
-複雑な工程別積み上げではなく、すばやく概算するためのツールです。
+## PWA
+
+This app can be installed and cached for fast startup.
