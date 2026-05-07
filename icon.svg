@@ -1,4 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="96" fill="#2563eb"/>
-  <path fill="#fff" d="M128 128h256v64H128zM128 224h112v64H128zM272 224h112v64H272zM128 320h256v64H128z"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="96" fill="#2563eb"/><path fill="#fff" d="M112 132h288v56H112zM112 228h136v56H112zM280 228h120v56H280zM112 324h288v56H112z"/></svg>

@@ -1,6 +1,6 @@
 {
-  "name": "見積もり補助ツール",
-  "short_name": "見積補助",
+  "name": "Simple Quote Tools",
+  "short_name": "QuoteTools",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#f3f6fb",
