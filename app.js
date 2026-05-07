@@ -160,6 +160,7 @@ function applyLanguage() {
   if (activePanel && window.setActiveTab) {
     window.setActiveTab(activePanel.id);
   }
+  refreshInlineInfoText();
 }
 
 function initTabs() {
@@ -323,6 +324,7 @@ function updateWeightFormula() {
     btn.setAttribute("title", text);
     btn.setAttribute("aria-label", text);
   }
+  refreshInlineInfoText();
 }
 function calcWeight() {
   const shape = $("shape").value || "plate";
@@ -455,6 +457,7 @@ function calcMachining() {
     machiningInfoBtn.setAttribute("title", formula);
     machiningInfoBtn.setAttribute("aria-label", formula);
   }
+  refreshInlineInfoText();
   $("rpmResult").textContent = `${fmt(rpm, 0)} rpm`;
   $("feedResult").textContent = `${fmt(feed, 1)} mm/min`;
   $("machiningTimeEach").textContent = `${fmt(eachMin)} min`;
@@ -488,6 +491,38 @@ function initCopyButtons() {
   });
 }
 
+
+function initInlineInfo() {
+  document.querySelectorAll(".info-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const title = btn.closest(".section-title");
+      if (!title) return;
+
+      let box = title.nextElementSibling;
+      if (!box || !box.classList.contains("inline-info")) {
+        box = document.createElement("div");
+        box.className = "inline-info hidden";
+        title.insertAdjacentElement("afterend", box);
+      }
+
+      const text = btn.dataset.tooltip || btn.getAttribute("title") || "";
+      box.textContent = text;
+      box.classList.toggle("hidden");
+      btn.classList.toggle("active", !box.classList.contains("hidden"));
+    });
+  });
+}
+
+function refreshInlineInfoText() {
+  document.querySelectorAll(".info-btn").forEach(btn => {
+    const title = btn.closest(".section-title");
+    const box = title ? title.nextElementSibling : null;
+    if (box && box.classList.contains("inline-info") && !box.classList.contains("hidden")) {
+      box.textContent = btn.dataset.tooltip || btn.getAttribute("title") || "";
+    }
+  });
+}
+
 function initPwa() {
   if ("serviceWorker" in navigator) navigator.serviceWorker.register("./service-worker.js");
   window.addEventListener("beforeinstallprompt", (e) => {
@@ -505,6 +540,7 @@ function initPwa() {
 
 function init() {
   initTabs();
+  initInlineInfo();
   initCopyButtons();
   initPwa();
 
