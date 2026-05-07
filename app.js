@@ -1,7 +1,7 @@
 const I18N = {
   en: {
     appTitle:"Factory Calc Tools", appSubtitle:"Quick calculators for unit conversion, weight, welding time, and machining time",
-    install:"Install", tabConvert:"Convert", tabWeight:"Weight", tabWelding:"Welding", tabMachining:"Machining", tabSettings:"Settings",
+    install:"Install", language:"Language", tabConvert:"Convert", tabWeight:"Weight", tabWelding:"Welding", tabMachining:"Machining", tabSettings:"Settings",
     unitConversion:"Unit Conversion", category:"Category", length:"Length", weightUnit:"Weight", pressure:"Pressure", temperature:"Temperature", area:"Area", volume:"Volume",
     enterValue:"Enter value", result:"Result", copyResult:"Copy Result",
     weightCalculator:"Weight Calculator", shape:"Shape", plate:"Plate / Flat Bar", roundBar:"Round Bar", squareBar:"Square / Rectangular Bar", hexBar:"Hex Bar", roundPipe:"Round Pipe", squarePipe:"Square / Rectangular Pipe",
@@ -23,7 +23,7 @@ const I18N = {
   },
   ja: {
     appTitle:"Factory Calc Tools", appSubtitle:"単位換算・重量・溶接時間・加工時間をすばやく計算",
-    install:"インストール", tabConvert:"単位換算", tabWeight:"重量", tabWelding:"溶接", tabMachining:"加工", tabSettings:"設定",
+    install:"インストール", language:"言語", tabConvert:"単位換算", tabWeight:"重量", tabWelding:"溶接", tabMachining:"加工", tabSettings:"設定",
     unitConversion:"単位換算", category:"カテゴリ", length:"長さ", weightUnit:"重量", pressure:"圧力", temperature:"温度", area:"面積", volume:"体積",
     enterValue:"値を入力", result:"結果", copyResult:"結果をコピー",
     weightCalculator:"重量計算", shape:"形状", plate:"板材 / フラットバー", roundBar:"丸棒", squareBar:"角材", hexBar:"六角材", roundPipe:"丸パイプ", squarePipe:"角パイプ",
@@ -45,7 +45,7 @@ const I18N = {
   },
   th: {
     appTitle:"Factory Calc Tools", appSubtitle:"เครื่องคำนวณด่วนสำหรับแปลงหน่วย น้ำหนัก เวลาเชื่อม และเวลาแมชชีน",
-    install:"ติดตั้ง", tabConvert:"แปลงหน่วย", tabWeight:"น้ำหนัก", tabWelding:"งานเชื่อม", tabMachining:"แมชชีน", tabSettings:"ตั้งค่า",
+    install:"ติดตั้ง", language:"ภาษา", tabConvert:"แปลงหน่วย", tabWeight:"น้ำหนัก", tabWelding:"งานเชื่อม", tabMachining:"แมชชีน", tabSettings:"ตั้งค่า",
     unitConversion:"แปลงหน่วย", category:"หมวดหมู่", length:"ความยาว", weightUnit:"น้ำหนัก", pressure:"ความดัน", temperature:"อุณหภูมิ", area:"พื้นที่", volume:"ปริมาตร",
     enterValue:"ใส่ค่า", result:"ผลลัพธ์", copyResult:"คัดลอกผลลัพธ์",
     weightCalculator:"คำนวณน้ำหนัก", shape:"รูปทรง", plate:"แผ่น / แฟลตบาร์", roundBar:"เหล็กกลม", squareBar:"เหล็กเหลี่ยม / สี่เหลี่ยมผืนผ้า", hexBar:"เหล็กหกเหลี่ยม", roundPipe:"ท่อกลม", squarePipe:"ท่อเหลี่ยม",
@@ -67,7 +67,7 @@ const I18N = {
   },
   id: {
     appTitle:"Factory Calc Tools", appSubtitle:"Kalkulator cepat untuk konversi unit, berat, waktu welding, dan waktu machining",
-    install:"Instal", tabConvert:"Konversi", tabWeight:"Berat", tabWelding:"Welding", tabMachining:"Machining", tabSettings:"Pengaturan",
+    install:"Instal", language:"Bahasa", tabConvert:"Konversi", tabWeight:"Berat", tabWelding:"Welding", tabMachining:"Machining", tabSettings:"Pengaturan",
     unitConversion:"Konversi Unit", category:"Kategori", length:"Panjang", weightUnit:"Berat", pressure:"Tekanan", temperature:"Suhu", area:"Luas", volume:"Volume",
     enterValue:"Masukkan nilai", result:"Hasil", copyResult:"Salin Hasil",
     weightCalculator:"Kalkulator Berat", shape:"Bentuk", plate:"Plate / Flat Bar", roundBar:"Round Bar", squareBar:"Square / Rectangular Bar", hexBar:"Hex Bar", roundPipe:"Round Pipe", squarePipe:"Square / Rectangular Pipe",
@@ -89,7 +89,7 @@ const I18N = {
   },
   zh: {
     appTitle:"Factory Calc Tools", appSubtitle:"快速计算单位换算、重量、焊接时间和加工时间",
-    install:"安装", tabConvert:"换算", tabWeight:"重量", tabWelding:"焊接", tabMachining:"加工", tabSettings:"设置",
+    install:"安装", language:"语言", tabConvert:"换算", tabWeight:"重量", tabWelding:"焊接", tabMachining:"加工", tabSettings:"设置",
     unitConversion:"单位换算", category:"类别", length:"长度", weightUnit:"重量", pressure:"压力", temperature:"温度", area:"面积", volume:"体积",
     enterValue:"输入数值", result:"结果", copyResult:"复制结果",
     weightCalculator:"重量计算", shape:"形状", plate:"板材 / 扁钢", roundBar:"圆棒", squareBar:"方棒 / 矩形棒", hexBar:"六角棒", roundPipe:"圆管", squarePipe:"方管 / 矩形管",

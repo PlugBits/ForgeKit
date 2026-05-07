@@ -16,13 +16,6 @@
       <p data-i18n="appSubtitle">Quick calculators for unit conversion, weight, welding time, and machining time</p>
     </div>
     <div class="header-actions">
-      <select id="langSelect" class="lang-select" aria-label="Language">
-        <option value="en">English</option>
-        <option value="ja">日本語</option>
-        <option value="th">ไทย</option>
-        <option value="id">Indonesia</option>
-        <option value="zh">中文</option>
-      </select>
       <button id="installBtn" class="ghost hidden" data-i18n="install">Install</button>
     </div>
   </header>
@@ -32,7 +25,7 @@
     <button class="tab" data-tab="weight" data-i18n="tabWeight">Weight</button>
     <button class="tab" data-tab="welding" data-i18n="tabWelding">Welding</button>
     <button class="tab" data-tab="machining" data-i18n="tabMachining">Machining</button>
-    <button class="tab" data-tab="settings" data-i18n="tabSettings">Settings</button>
+    <button class="tab settings-tab" data-tab="settings"><span class="tab-icon">⚙</span><span data-i18n="tabSettings">Settings</span></button>
   </nav>
 
   <main>
@@ -156,6 +149,16 @@
     <section id="settings" class="panel">
       <div class="card">
         <h2 data-i18n="settings">Settings</h2>
+
+        <label data-i18n="language">Language</label>
+        <select id="langSelect" class="lang-select" aria-label="Language">
+          <option value="en">English</option>
+          <option value="ja">日本語</option>
+          <option value="th">ไทย</option>
+          <option value="id">Indonesia</option>
+          <option value="zh">中文</option>
+        </select>
+
         <p class="note" data-i18n="densityNote">Density is in g/cm³ and is used for weight calculations.</p>
         <div id="materialSettings"></div>
         <button id="saveSettings" class="primary" data-i18n="saveSettings">Save Settings</button>
@@ -165,6 +168,6 @@
   </main>
 
   <footer>GitHub Pages / PWA Ready</footer>
-  <script src="./app.js"></script>
+  <script src="./app.js?v=ui2"></script>
 </body>
 </html>
