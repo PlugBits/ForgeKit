@@ -122,11 +122,10 @@ const $ = (id) => document.getElementById(id);
 const t = (key) => (I18N[currentLang] && I18N[currentLang][key]) || I18N.en[key] || key;
 const num = (id) => parseFloat($(id)?.value || "0") || 0;
 const fmt = (v, digits = 3) => Number.isFinite(v) ? Number(v).toLocaleString(undefined, { maximumFractionDigits: digits }) : "0";
-const clone = (obj) => JSON.parse(JSON.stringify(obj));
 
 function loadJson(key, fallback) {
-  try { return JSON.parse(localStorage.getItem(key)) || clone(fallback); }
-  catch { return clone(fallback); }
+  try { return JSON.parse(localStorage.getItem(key)) || JSON.parse(JSON.stringify(fallback)); }
+  catch { return JSON.parse(JSON.stringify(fallback)); }
 }
 function saveJson(key, data) { localStorage.setItem(key, JSON.stringify(data)); }
 
@@ -458,7 +457,7 @@ function init() {
     calcWeight();
   });
   $("resetSettings").addEventListener("click", () => {
-    materials = clone(DEFAULT_MATERIALS);
+    materials = JSON.parse(JSON.stringify(DEFAULT_MATERIALS));
     saveJson("materials", materials);
     initMaterialSelect();
     renderSettings();
