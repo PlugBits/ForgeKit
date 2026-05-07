@@ -20,13 +20,20 @@
     </div>
   </header>
 
-  <nav class="tabs">
-    <button class="tab active" data-tab="convert" data-i18n="tabConvert">Convert</button>
-    <button class="tab" data-tab="weight" data-i18n="tabWeight">Weight</button>
-    <button class="tab" data-tab="welding" data-i18n="tabWelding">Welding</button>
-    <button class="tab" data-tab="machining" data-i18n="tabMachining">Machining</button>
-    <button class="tab settings-tab" data-tab="settings"><span class="tab-icon">⚙</span><span data-i18n="tabSettings">Settings</span></button>
+  <nav class="top-nav">
+    <button id="menuToggle" class="nav-button menu-button" type="button" aria-expanded="false" aria-controls="navMenu">
+      <span class="hamburger-icon">☰</span>
+      <span id="currentTabLabel" data-i18n="tabConvert">Convert</span>
+    </button>
+    <button id="settingsShortcut" class="nav-button icon-button" type="button" aria-label="Settings" data-tab="settings">⚙</button>
   </nav>
+
+  <div id="navMenu" class="nav-menu hidden">
+    <button class="menu-item active" data-tab="convert" data-i18n="tabConvert">Convert</button>
+    <button class="menu-item" data-tab="weight" data-i18n="tabWeight">Weight</button>
+    <button class="menu-item" data-tab="welding" data-i18n="tabWelding">Welding</button>
+    <button class="menu-item" data-tab="machining" data-i18n="tabMachining">Machining</button>
+  </div>
 
   <main>
     <section id="convert" class="panel active">
@@ -168,6 +175,6 @@
   </main>
 
   <footer>GitHub Pages / PWA Ready</footer>
-  <script src="./app.js?v=ui2"></script>
+  <script src="./app.js?v=hamburger1"></script>
 </body>
 </html>

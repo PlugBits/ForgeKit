@@ -149,16 +149,61 @@ function applyLanguage() {
   renderSettings();
   renderConverterUnits();
   calcWelding();
+
+  const activePanel = document.querySelector(".panel.active");
+  if (activePanel && window.setActiveTab) {
+    window.setActiveTab(activePanel.id);
+  }
 }
 
 function initTabs() {
-  document.querySelectorAll(".tab").forEach(btn => {
-    btn.addEventListener("click", () => {
-      document.querySelectorAll(".tab").forEach(b => b.classList.remove("active"));
-      document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
-      btn.classList.add("active");
-      $(btn.dataset.tab).classList.add("active");
+  const menuToggle = $("menuToggle");
+  const navMenu = $("navMenu");
+  const settingsShortcut = $("settingsShortcut");
+
+  function tabLabelKey(tabName) {
+    const map = {
+      convert: "tabConvert",
+      weight: "tabWeight",
+      welding: "tabWelding",
+      machining: "tabMachining",
+      settings: "tabSettings"
+    };
+    return map[tabName] || "tabConvert";
+  }
+
+  window.setActiveTab = function(tabName) {
+    document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
+    const panel = $(tabName);
+    if (panel) panel.classList.add("active");
+
+    document.querySelectorAll(".menu-item").forEach(item => {
+      item.classList.toggle("active", item.dataset.tab === tabName);
     });
+
+    $("currentTabLabel").textContent = t(tabLabelKey(tabName));
+    settingsShortcut.classList.toggle("active", tabName === "settings");
+
+    navMenu.classList.add("hidden");
+    menuToggle.setAttribute("aria-expanded", "false");
+  };
+
+  menuToggle.addEventListener("click", () => {
+    const isHidden = navMenu.classList.toggle("hidden");
+    menuToggle.setAttribute("aria-expanded", String(!isHidden));
+  });
+
+  document.querySelectorAll(".menu-item").forEach(btn => {
+    btn.addEventListener("click", () => window.setActiveTab(btn.dataset.tab));
+  });
+
+  settingsShortcut.addEventListener("click", () => window.setActiveTab("settings"));
+
+  document.addEventListener("click", (event) => {
+    if (!navMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+      navMenu.classList.add("hidden");
+      menuToggle.setAttribute("aria-expanded", "false");
+    }
   });
 }
 
