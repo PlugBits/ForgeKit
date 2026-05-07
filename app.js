@@ -2,7 +2,7 @@ const I18N = {
   en: {
     appTitle:"Factory Calc Tools", appSubtitle:"Quick calculators for unit conversion, weight, welding time, and machining time",
     install:"Install", language:"Language", tabConvert:"Convert", tabWeight:"Weight", tabWelding:"Welding", tabMachining:"Machining", tabSettings:"Settings",
-    unitConversion:"Unit Conversion", category:"Category", length:"Length", weightUnit:"Weight", pressure:"Pressure", temperature:"Temperature", area:"Area", volume:"Volume",
+    unitConversion:"Unit Conversion", unitConversionInfo:"Convert common factory units such as length, weight, pressure, temperature, area, and volume.", category:"Category", length:"Length", weightUnit:"Weight", pressure:"Pressure", temperature:"Temperature", area:"Area", volume:"Volume",
     enterValue:"Enter value", result:"Result", copyResult:"Copy Result",
     weightCalculator:"Weight Calculator", shape:"Shape", plate:"Plate / Flat Bar", roundBar:"Round Bar", squareBar:"Square / Rectangular Bar", hexBar:"Hex Bar", roundPipe:"Round Pipe", squarePipe:"Square / Rectangular Pipe",
     material:"Material", quantity:"Quantity", weightPerPiece:"Weight per piece", totalWeight:"Total weight",
@@ -24,7 +24,7 @@ const I18N = {
   ja: {
     appTitle:"Factory Calc Tools", appSubtitle:"単位換算・重量・溶接時間・加工時間をすばやく計算",
     install:"インストール", language:"言語", tabConvert:"単位換算", tabWeight:"重量", tabWelding:"溶接", tabMachining:"加工", tabSettings:"設定",
-    unitConversion:"単位換算", category:"カテゴリ", length:"長さ", weightUnit:"重量", pressure:"圧力", temperature:"温度", area:"面積", volume:"体積",
+    unitConversion:"単位換算", unitConversionInfo:"長さ、重量、圧力、温度、面積、体積など、工場でよく使う単位を換算します。", category:"カテゴリ", length:"長さ", weightUnit:"重量", pressure:"圧力", temperature:"温度", area:"面積", volume:"体積",
     enterValue:"値を入力", result:"結果", copyResult:"結果をコピー",
     weightCalculator:"重量計算", shape:"形状", plate:"板材 / フラットバー", roundBar:"丸棒", squareBar:"角材", hexBar:"六角材", roundPipe:"丸パイプ", squarePipe:"角パイプ",
     material:"材質", quantity:"数量", weightPerPiece:"1個あたり", totalWeight:"合計",
@@ -46,7 +46,7 @@ const I18N = {
   th: {
     appTitle:"Factory Calc Tools", appSubtitle:"เครื่องคำนวณด่วนสำหรับแปลงหน่วย น้ำหนัก เวลาเชื่อม และเวลาแมชชีน",
     install:"ติดตั้ง", language:"ภาษา", tabConvert:"แปลงหน่วย", tabWeight:"น้ำหนัก", tabWelding:"งานเชื่อม", tabMachining:"แมชชีน", tabSettings:"ตั้งค่า",
-    unitConversion:"แปลงหน่วย", category:"หมวดหมู่", length:"ความยาว", weightUnit:"น้ำหนัก", pressure:"ความดัน", temperature:"อุณหภูมิ", area:"พื้นที่", volume:"ปริมาตร",
+    unitConversion:"แปลงหน่วย", unitConversionInfo:"แปลงหน่วยที่ใช้บ่อยในโรงงาน เช่น ความยาว น้ำหนัก ความดัน อุณหภูมิ พื้นที่ และปริมาตร", category:"หมวดหมู่", length:"ความยาว", weightUnit:"น้ำหนัก", pressure:"ความดัน", temperature:"อุณหภูมิ", area:"พื้นที่", volume:"ปริมาตร",
     enterValue:"ใส่ค่า", result:"ผลลัพธ์", copyResult:"คัดลอกผลลัพธ์",
     weightCalculator:"คำนวณน้ำหนัก", shape:"รูปทรง", plate:"แผ่น / แฟลตบาร์", roundBar:"เหล็กกลม", squareBar:"เหล็กเหลี่ยม / สี่เหลี่ยมผืนผ้า", hexBar:"เหล็กหกเหลี่ยม", roundPipe:"ท่อกลม", squarePipe:"ท่อเหลี่ยม",
     material:"วัสดุ", quantity:"จำนวน", weightPerPiece:"น้ำหนักต่อชิ้น", totalWeight:"น้ำหนักรวม",
@@ -68,7 +68,7 @@ const I18N = {
   id: {
     appTitle:"Factory Calc Tools", appSubtitle:"Kalkulator cepat untuk konversi unit, berat, waktu welding, dan waktu machining",
     install:"Instal", language:"Bahasa", tabConvert:"Konversi", tabWeight:"Berat", tabWelding:"Welding", tabMachining:"Machining", tabSettings:"Pengaturan",
-    unitConversion:"Konversi Unit", category:"Kategori", length:"Panjang", weightUnit:"Berat", pressure:"Tekanan", temperature:"Suhu", area:"Luas", volume:"Volume",
+    unitConversion:"Konversi Unit", unitConversionInfo:"Konversi unit umum di pabrik seperti panjang, berat, tekanan, suhu, luas, dan volume.", category:"Kategori", length:"Panjang", weightUnit:"Berat", pressure:"Tekanan", temperature:"Suhu", area:"Luas", volume:"Volume",
     enterValue:"Masukkan nilai", result:"Hasil", copyResult:"Salin Hasil",
     weightCalculator:"Kalkulator Berat", shape:"Bentuk", plate:"Plate / Flat Bar", roundBar:"Round Bar", squareBar:"Square / Rectangular Bar", hexBar:"Hex Bar", roundPipe:"Round Pipe", squarePipe:"Square / Rectangular Pipe",
     material:"Material", quantity:"Jumlah", weightPerPiece:"Berat per pcs", totalWeight:"Berat total",
@@ -90,7 +90,7 @@ const I18N = {
   zh: {
     appTitle:"Factory Calc Tools", appSubtitle:"快速计算单位换算、重量、焊接时间和加工时间",
     install:"安装", language:"语言", tabConvert:"换算", tabWeight:"重量", tabWelding:"焊接", tabMachining:"加工", tabSettings:"设置",
-    unitConversion:"单位换算", category:"类别", length:"长度", weightUnit:"重量", pressure:"压力", temperature:"温度", area:"面积", volume:"体积",
+    unitConversion:"单位换算", unitConversionInfo:"换算工厂常用单位，如长度、重量、压力、温度、面积和体积。", category:"类别", length:"长度", weightUnit:"重量", pressure:"压力", temperature:"温度", area:"面积", volume:"体积",
     enterValue:"输入数值", result:"结果", copyResult:"复制结果",
     weightCalculator:"重量计算", shape:"形状", plate:"板材 / 扁钢", roundBar:"圆棒", squareBar:"方棒 / 矩形棒", hexBar:"六角棒", roundPipe:"圆管", squarePipe:"方管 / 矩形管",
     material:"材料", quantity:"数量", weightPerPiece:"单件重量", totalWeight:"总重量",
@@ -142,6 +142,12 @@ function applyLanguage() {
   });
   document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
     el.placeholder = t(el.dataset.i18nPlaceholder);
+  });
+  document.querySelectorAll("[data-i18n-tooltip]").forEach(el => {
+    const text = t(el.dataset.i18nTooltip);
+    el.dataset.tooltip = text;
+    el.setAttribute("title", text);
+    el.setAttribute("aria-label", text);
   });
   initMaterialSelect();
   renderShapeInputs();
@@ -310,7 +316,13 @@ function renderShapeInputs() {
 function updateWeightFormula() {
   const shape = $("shape").value || "plate";
   const map = { plate:"fPlate", round:"fRound", square:"fSquare", hex:"fHex", roundPipe:"fRoundPipe", squarePipe:"fSquarePipe" };
-  $("weightFormula").textContent = `${t(map[shape])} / ${t("weightFormulaSuffix")}`;
+  const text = `${t(map[shape])} / ${t("weightFormulaSuffix")}`;
+  const btn = $("weightInfoBtn");
+  if (btn) {
+    btn.dataset.tooltip = text;
+    btn.setAttribute("title", text);
+    btn.setAttribute("aria-label", text);
+  }
 }
 function calcWeight() {
   const shape = $("shape").value || "plate";
@@ -437,7 +449,12 @@ function calcMachining() {
     formula = t("fdrilling");
   }
   const qty = Math.max(1, num("qtyMachining"));
-  $("machiningFormula").textContent = formula;
+  const machiningInfoBtn = $("machiningInfoBtn");
+  if (machiningInfoBtn) {
+    machiningInfoBtn.dataset.tooltip = formula;
+    machiningInfoBtn.setAttribute("title", formula);
+    machiningInfoBtn.setAttribute("aria-label", formula);
+  }
   $("rpmResult").textContent = `${fmt(rpm, 0)} rpm`;
   $("feedResult").textContent = `${fmt(feed, 1)} mm/min`;
   $("machiningTimeEach").textContent = `${fmt(eachMin)} min`;

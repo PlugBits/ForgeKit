@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#1f2937">
   <link rel="icon" href="./icon.svg" type="image/svg+xml">
   <link rel="manifest" href="./manifest.json">
-  <link rel="stylesheet" href="./style.css?v=ui-fix2">
+  <link rel="stylesheet" href="./style.css?v=info1">
 </head>
 <body>
   <header class="app-header">
@@ -38,7 +38,7 @@
   <main>
     <section id="convert" class="panel active">
       <div class="card">
-        <h2 data-i18n="unitConversion">Unit Conversion</h2>
+        <div class="section-title"><h2 data-i18n="unitConversion">Unit Conversion</h2><button class="info-btn" type="button" data-i18n-tooltip="unitConversionInfo" aria-label="Info">i</button></div>
         <label data-i18n="category">Category</label>
         <select id="convertType">
           <option value="length" data-i18n="length">Length</option>
@@ -66,7 +66,7 @@
 
     <section id="weight" class="panel">
       <div class="card">
-        <h2 data-i18n="weightCalculator">Weight Calculator</h2>
+        <div class="section-title"><h2 data-i18n="weightCalculator">Weight Calculator</h2><button id="weightInfoBtn" class="info-btn" type="button" aria-label="Info">i</button></div>
         <label data-i18n="shape">Shape</label>
         <select id="shape">
           <option value="plate" data-i18n="plate">Plate / Flat Bar</option>
@@ -85,8 +85,6 @@
         <label data-i18n="quantity">Quantity</label>
         <input id="qty" type="number" min="1" step="1" value="1">
 
-        <p class="formula" id="weightFormula"></p>
-
         <div class="result">
           <div><span data-i18n="weightPerPiece">Weight per piece</span><strong id="weightEach">0 kg</strong></div>
           <div><span data-i18n="totalWeight">Total weight</span><strong id="weightTotal">0 kg</strong></div>
@@ -97,9 +95,7 @@
 
     <section id="welding" class="panel">
       <div class="card">
-        <h2 data-i18n="weldingTimeCalculator">Welding Time Calculator</h2>
-        <p class="note" data-i18n="weldingNote">Welding time = total weld length ÷ welding speed. Gas and wire are estimated from arc time. Work time is arc time + assist/move time.</p>
-
+        <div class="section-title"><h2 data-i18n="weldingTimeCalculator">Welding Time Calculator</h2><button class="info-btn" type="button" data-i18n-tooltip="weldingNote" aria-label="Info">i</button></div>
         <div class="grid">
           <div><label data-i18n="totalWeldLength">Total weld length mm / pc</label><input id="weldLength" type="number" step="any" value="1000"></div>
           <div><label data-i18n="legLength">Leg length mm</label><input id="weldLegLength" type="number" step="any" value="6"></div>
@@ -132,7 +128,7 @@
 
     <section id="machining" class="panel">
       <div class="card">
-        <h2 data-i18n="machiningTimeCalculator">Machining Time Calculator</h2>
+        <div class="section-title"><h2 data-i18n="machiningTimeCalculator">Machining Time Calculator</h2><button id="machiningInfoBtn" class="info-btn" type="button" aria-label="Info">i</button></div>
         <label data-i18n="calculationType">Calculation type</label>
         <select id="machiningType">
           <option value="milling" data-i18n="milling">Machining / Milling</option>
@@ -141,8 +137,6 @@
         </select>
 
         <div id="machiningInputs" class="grid"></div>
-        <p class="formula" id="machiningFormula"></p>
-
         <div class="result vertical">
           <div><span data-i18n="spindleSpeed">Spindle speed</span><strong id="rpmResult">0 rpm</strong></div>
           <div><span data-i18n="feedRate">Feed rate</span><strong id="feedResult">0 mm/min</strong></div>
@@ -155,7 +149,7 @@
 
     <section id="settings" class="panel">
       <div class="card">
-        <h2 data-i18n="settings">Settings</h2>
+        <div class="section-title"><h2 data-i18n="settings">Settings</h2><button class="info-btn" type="button" data-i18n-tooltip="densityNote" aria-label="Info">i</button></div>
 
         <label data-i18n="language">Language</label>
         <select id="langSelect" class="lang-select" aria-label="Language">
@@ -166,7 +160,6 @@
           <option value="zh">中文</option>
         </select>
 
-        <p class="note" data-i18n="densityNote">Density is in g/cm³ and is used for weight calculations.</p>
         <div id="materialSettings"></div>
         <button id="saveSettings" class="primary" data-i18n="saveSettings">Save Settings</button>
         <button id="resetSettings" class="ghost" data-i18n="resetDefaults">Reset to Defaults</button>
@@ -175,6 +168,6 @@
   </main>
 
   <footer>GitHub Pages / PWA Ready</footer>
-  <script src="./app.js?v=ui-fix2"></script>
+  <script src="./app.js?v=info1"></script>
 </body>
 </html>
