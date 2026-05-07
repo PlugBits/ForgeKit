@@ -23,10 +23,12 @@ A lightweight multilingual PWA for factory calculations.
   - Square / rectangular pipe
 - Welding time calculator
   - Total weld length
+  - Leg length
   - Welding speed
   - Assist / move time
-  - Gas usage
-  - Wire usage
+  - Gas usage based on arc time
+  - Weld metal weight
+  - Wire usage based on weld volume, reinforcement factor, and deposition efficiency
 - Machining time calculator
   - Milling
   - Turning

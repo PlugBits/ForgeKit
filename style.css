@@ -153,6 +153,20 @@ input, select {
   gap: 10px;
   align-items: center;
 }
+
+.advanced {
+  margin-top: 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 10px 12px 12px;
+  background: #fcfcfd;
+}
+.advanced summary {
+  cursor: pointer;
+  font-weight: 800;
+  color: #334155;
+}
+
 footer {
   text-align: center;
   color: var(--muted);

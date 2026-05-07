@@ -102,18 +102,28 @@
 
         <div class="grid">
           <div><label data-i18n="totalWeldLength">Total weld length mm / pc</label><input id="weldLength" type="number" step="any" value="1000"></div>
+          <div><label data-i18n="legLength">Leg length mm</label><input id="weldLegLength" type="number" step="any" value="6"></div>
           <div><label data-i18n="weldingSpeed">Welding speed mm/min</label><input id="weldSpeed" type="number" step="any" value="300"></div>
           <div><label data-i18n="assistMoveTime">Assist / move time sec / pc</label><input id="weldAssistSec" type="number" step="any" value="30"></div>
           <div><label data-i18n="quantityPcs">Quantity pcs</label><input id="weldQty" type="number" step="1" value="1"></div>
           <div><label data-i18n="gasFlow">Gas flow L/min</label><input id="gasFlow" type="number" step="any" value="15"></div>
-          <div><label data-i18n="wireUsageRate">Wire usage kg/hr</label><input id="wireRate" type="number" step="any" value="2.5"></div>
         </div>
+
+        <details class="advanced">
+          <summary data-i18n="advancedSettings">Advanced settings</summary>
+          <div class="grid">
+            <div><label data-i18n="depositionEfficiency">Deposition efficiency %</label><input id="depositionEfficiency" type="number" step="any" value="92"></div>
+            <div><label data-i18n="reinforcementFactor">Reinforcement factor</label><input id="reinforcementFactor" type="number" step="any" value="1.15"></div>
+            <div><label data-i18n="weldMetalDensity">Weld metal density g/cm³</label><input id="weldMetalDensity" type="number" step="any" value="7.85"></div>
+          </div>
+        </details>
 
         <div class="result vertical">
           <div><span data-i18n="arcTimePc">Arc time / pc</span><strong id="arcTimeEach">0 min</strong></div>
           <div><span data-i18n="workTimePc">Work time / pc</span><strong id="workTimeEach">0 min</strong></div>
           <div><span data-i18n="totalWorkTime">Total work time</span><strong id="workTimeTotal">0 min</strong></div>
           <div><span data-i18n="gasUsage">Gas usage</span><strong id="gasUsage">0 L</strong></div>
+          <div><span data-i18n="weldMetalWeight">Weld metal weight</span><strong id="weldMetalWeight">0 kg</strong></div>
           <div><span data-i18n="wireUsage">Wire usage</span><strong id="wireUsage">0 kg</strong></div>
         </div>
         <button id="copyWelding" class="primary" data-i18n="copyResult">Copy Result</button>

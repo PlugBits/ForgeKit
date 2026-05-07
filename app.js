@@ -9,6 +9,7 @@ const I18N = {
     weldingTimeCalculator:"Welding Time Calculator",
     weldingNote:"Welding time = total weld length ÷ welding speed. Gas and wire are estimated from arc time. Work time is arc time + assist/move time.",
     totalWeldLength:"Total weld length mm / pc", weldingSpeed:"Welding speed mm/min", assistMoveTime:"Assist / move time sec / pc", quantityPcs:"Quantity pcs", gasFlow:"Gas flow L/min", wireUsageRate:"Wire usage kg/hr",
+    legLength:"Leg length mm", advancedSettings:"Advanced settings", depositionEfficiency:"Deposition efficiency %", reinforcementFactor:"Reinforcement factor", weldMetalDensity:"Weld metal density g/cm³", weldMetalWeight:"Weld metal weight",
     arcTimePc:"Arc time / pc", workTimePc:"Work time / pc", totalWorkTime:"Total work time", gasUsage:"Gas usage", wireUsage:"Wire usage",
     machiningTimeCalculator:"Machining Time Calculator", calculationType:"Calculation type", milling:"Machining / Milling", turning:"Turning", drilling:"Drilling",
     spindleSpeed:"Spindle speed", feedRate:"Feed rate", machiningTimePc:"Machining time / pc", totalMachiningTime:"Total machining time",
@@ -30,6 +31,7 @@ const I18N = {
     weldingTimeCalculator:"溶接時間計算",
     weldingNote:"溶接時間 = 総溶接長 ÷ 溶接速度。ガス・ワイヤーはアーク時間ベース、作業時間はアーク時間 + 移動・補助時間で計算します。",
     totalWeldLength:"総溶接長 mm / pc", weldingSpeed:"溶接速度 mm/min", assistMoveTime:"移動・補助時間 sec / pc", quantityPcs:"数量 pcs", gasFlow:"ガス流量 L/min", wireUsageRate:"ワイヤー使用量 kg/hr",
+    legLength:"脚長 mm", advancedSettings:"詳細設定", depositionEfficiency:"溶着効率 %", reinforcementFactor:"余盛り係数", weldMetalDensity:"溶着金属密度 g/cm³", weldMetalWeight:"溶着金属重量",
     arcTimePc:"アーク時間 / pc", workTimePc:"作業時間 / pc", totalWorkTime:"合計作業時間", gasUsage:"ガス使用量", wireUsage:"ワイヤー使用量",
     machiningTimeCalculator:"加工時間計算", calculationType:"計算タイプ", milling:"マシニング / フライス", turning:"旋盤", drilling:"穴あけ",
     spindleSpeed:"回転数", feedRate:"送り速度", machiningTimePc:"加工時間 / pc", totalMachiningTime:"合計加工時間",
@@ -51,6 +53,7 @@ const I18N = {
     weldingTimeCalculator:"คำนวณเวลาเชื่อม",
     weldingNote:"เวลาเชื่อม = ความยาวแนวเชื่อมรวม ÷ ความเร็วเชื่อม ก๊าซและลวดคำนวณจากเวลาอาร์ก เวลา งาน = เวลาอาร์ก + เวลาช่วย/เคลื่อนย้าย",
     totalWeldLength:"ความยาวแนวเชื่อมรวม mm / ชิ้น", weldingSpeed:"ความเร็วเชื่อม mm/min", assistMoveTime:"เวลาช่วย/เคลื่อนย้าย sec / ชิ้น", quantityPcs:"จำนวน pcs", gasFlow:"อัตราการไหลก๊าซ L/min", wireUsageRate:"อัตราใช้ลวด kg/hr",
+    legLength:"ขาเชื่อม mm", advancedSettings:"การตั้งค่าขั้นสูง", depositionEfficiency:"ประสิทธิภาพการสะสม %", reinforcementFactor:"ค่าส่วนเสริมแนวเชื่อม", weldMetalDensity:"ความหนาแน่นโลหะเชื่อม g/cm³", weldMetalWeight:"น้ำหนักโลหะเชื่อม",
     arcTimePc:"เวลาอาร์ก / ชิ้น", workTimePc:"เวลางาน / ชิ้น", totalWorkTime:"เวลางานรวม", gasUsage:"ปริมาณก๊าซ", wireUsage:"ปริมาณลวด",
     machiningTimeCalculator:"คำนวณเวลาแมชชีน", calculationType:"ประเภทการคำนวณ", milling:"แมชชีน / มิลลิ่ง", turning:"กลึง", drilling:"เจาะ",
     spindleSpeed:"ความเร็วรอบ", feedRate:"อัตราป้อน", machiningTimePc:"เวลาแมชชีน / ชิ้น", totalMachiningTime:"เวลาแมชชีนรวม",
@@ -72,6 +75,7 @@ const I18N = {
     weldingTimeCalculator:"Kalkulator Waktu Welding",
     weldingNote:"Waktu welding = total panjang las ÷ kecepatan welding. Gas dan wire dihitung dari arc time. Work time = arc time + assist/move time.",
     totalWeldLength:"Total panjang las mm / pcs", weldingSpeed:"Kecepatan welding mm/min", assistMoveTime:"Assist / move time sec / pcs", quantityPcs:"Jumlah pcs", gasFlow:"Gas flow L/min", wireUsageRate:"Pemakaian wire kg/hr",
+    legLength:"Ukuran kaki las mm", advancedSettings:"Pengaturan lanjutan", depositionEfficiency:"Efisiensi deposisi %", reinforcementFactor:"Faktor reinforcement", weldMetalDensity:"Density logam las g/cm³", weldMetalWeight:"Berat logam las",
     arcTimePc:"Arc time / pcs", workTimePc:"Work time / pcs", totalWorkTime:"Total work time", gasUsage:"Pemakaian gas", wireUsage:"Pemakaian wire",
     machiningTimeCalculator:"Kalkulator Waktu Machining", calculationType:"Tipe perhitungan", milling:"Machining / Milling", turning:"Turning", drilling:"Drilling",
     spindleSpeed:"Spindle speed", feedRate:"Feed rate", machiningTimePc:"Machining time / pcs", totalMachiningTime:"Total machining time",
@@ -93,6 +97,7 @@ const I18N = {
     weldingTimeCalculator:"焊接时间计算",
     weldingNote:"焊接时间 = 总焊缝长度 ÷ 焊接速度。气体和焊丝按电弧时间估算。作业时间 = 电弧时间 + 辅助/移动时间。",
     totalWeldLength:"总焊缝长度 mm / 件", weldingSpeed:"焊接速度 mm/min", assistMoveTime:"辅助/移动时间 sec / 件", quantityPcs:"数量 pcs", gasFlow:"气体流量 L/min", wireUsageRate:"焊丝用量 kg/hr",
+    legLength:"焊脚尺寸 mm", advancedSettings:"高级设置", depositionEfficiency:"熔敷效率 %", reinforcementFactor:"余高系数", weldMetalDensity:"焊缝金属密度 g/cm³", weldMetalWeight:"焊缝金属重量",
     arcTimePc:"电弧时间 / 件", workTimePc:"作业时间 / 件", totalWorkTime:"总作业时间", gasUsage:"气体用量", wireUsage:"焊丝用量",
     machiningTimeCalculator:"加工时间计算", calculationType:"计算类型", milling:"加工中心 / 铣削", turning:"车削", drilling:"钻孔",
     spindleSpeed:"主轴转速", feedRate:"进给速度", machiningTimePc:"加工时间 / 件", totalMachiningTime:"总加工时间",
@@ -300,12 +305,25 @@ function calcWelding() {
   const qty = Math.max(1, num("weldQty"));
   const totalArcMin = arcEachMin * qty;
   const totalWorkMin = workEachMin * qty;
+
+  // Fillet weld approximation:
+  // cross-sectional area = leg length^2 / 2
+  // weld metal weight = volume(cm3) * density(g/cm3) / 1000
+  // wire usage = weld metal weight * reinforcement factor / deposition efficiency
+  const leg = num("weldLegLength");
+  const weldAreaMm2 = (leg * leg) / 2;
+  const totalWeldVolumeMm3 = weldAreaMm2 * num("weldLength") * qty;
+  const weldMetalKg = (totalWeldVolumeMm3 / 1000) * num("weldMetalDensity") / 1000;
+  const depositionEfficiency = Math.max(0.0001, num("depositionEfficiency") / 100);
+  const wireKg = weldMetalKg * num("reinforcementFactor") / depositionEfficiency;
+
   const gasL = totalArcMin * num("gasFlow");
-  const wireKg = (totalArcMin / 60) * num("wireRate");
+
   $("arcTimeEach").textContent = `${fmt(arcEachMin)} min`;
   $("workTimeEach").textContent = `${fmt(workEachMin)} min`;
   $("workTimeTotal").textContent = `${fmt(totalWorkMin)} min`;
   $("gasUsage").textContent = `${fmt(gasL)} L`;
+  $("weldMetalWeight").textContent = `${fmt(weldMetalKg)} kg`;
   $("wireUsage").textContent = `${fmt(wireKg)} kg`;
 }
 
@@ -401,7 +419,7 @@ function initCopyButtons() {
     copyText(`${t("tabWeight")}: ${t("weightPerPiece")} ${$("weightEach").textContent}, ${t("totalWeight")} ${$("weightTotal").textContent}`);
   });
   $("copyWelding").addEventListener("click", () => {
-    copyText(`${t("tabWelding")}: ${t("arcTimePc")} ${$("arcTimeEach").textContent}, ${t("workTimePc")} ${$("workTimeEach").textContent}, ${t("totalWorkTime")} ${$("workTimeTotal").textContent}, ${t("gasUsage")} ${$("gasUsage").textContent}, ${t("wireUsage")} ${$("wireUsage").textContent}`);
+    copyText(`${t("tabWelding")}: ${t("arcTimePc")} ${$("arcTimeEach").textContent}, ${t("workTimePc")} ${$("workTimeEach").textContent}, ${t("totalWorkTime")} ${$("workTimeTotal").textContent}, ${t("gasUsage")} ${$("gasUsage").textContent}, ${t("weldMetalWeight")} ${$("weldMetalWeight").textContent}, ${t("wireUsage")} ${$("wireUsage").textContent}`);
   });
   $("copyMachining").addEventListener("click", () => {
     copyText(`${t("tabMachining")}: ${$("rpmResult").textContent}, ${$("feedResult").textContent}, ${t("machiningTimePc")} ${$("machiningTimeEach").textContent}, ${t("totalMachiningTime")} ${$("machiningTimeTotal").textContent}`);
@@ -443,7 +461,7 @@ function init() {
   }));
   $("qty").addEventListener("input", calcWeight);
 
-  ["weldLength", "weldSpeed", "weldAssistSec", "weldQty", "gasFlow", "wireRate"].forEach(id => $(id).addEventListener("input", calcWelding));
+  ["weldLength", "weldLegLength", "weldSpeed", "weldAssistSec", "weldQty", "gasFlow", "depositionEfficiency", "reinforcementFactor", "weldMetalDensity"].forEach(id => $(id).addEventListener("input", calcWelding));
   $("machiningType").addEventListener("change", renderMachiningInputs);
 
   $("saveSettings").addEventListener("click", () => {
