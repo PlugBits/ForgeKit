@@ -512,3 +512,45 @@ footer {
 .note {
   display: none;
 }
+
+
+/* Tooltip position fix: keep info text inside narrow side panels */
+.section-title {
+  position: relative;
+}
+
+.info-btn::after {
+  left: auto;
+  right: auto;
+  top: calc(100% + 8px);
+  transform: none;
+  width: clamp(220px, 72vw, 300px);
+  max-width: calc(100vw - 48px);
+  white-space: normal;
+}
+
+.section-title .info-btn::after {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* In narrow side panels, anchor tooltip to the card/title area instead of the button */
+@media (max-width: 480px) {
+  .section-title .info-btn::after {
+    left: auto;
+    right: -16px;
+    transform: none;
+    width: min(300px, calc(100vw - 44px));
+    max-width: calc(100vw - 44px);
+  }
+}
+
+/* Extremely narrow side-panel fallback */
+@media (max-width: 380px) {
+  .section-title .info-btn::after {
+    right: -8px;
+    width: min(280px, calc(100vw - 32px));
+    max-width: calc(100vw - 32px);
+    font-size: 11.5px;
+  }
+}

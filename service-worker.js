@@ -1,4 +1,4 @@
-const CACHE_NAME = "factory-calc-tools-multilang-v8";
+const CACHE_NAME = "factory-calc-tools-multilang-v9";
 const ASSETS = [
   "./",
   "./index.html",
