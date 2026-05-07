@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>見積もり補助ツール</title>
+  <meta name="theme-color" content="#1f2937" />
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div>
+      <h1>見積もり補助ツール</h1>
+      <p>重量計算・単位換算・材料費の簡易計算</p>
+    </div>
+    <button id="installBtn" class="ghost hidden">インストール</button>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" data-tab="weight">重量計算</button>
+    <button class="tab" data-tab="convert">単位換算</button>
+    <button class="tab" data-tab="cost">材料費</button>
+    <button class="tab" data-tab="settings">設定</button>
+  </nav>
+
+  <main>
+    <section id="weight" class="panel active">
+      <div class="card">
+        <h2>重量計算</h2>
+
+        <label>形状</label>
+        <select id="shape">
+          <option value="plate">板材 / フラットバー</option>
+          <option value="round">丸棒</option>
+          <option value="square">角材</option>
+          <option value="hex">六角材</option>
+          <option value="roundPipe">丸パイプ</option>
+          <option value="squarePipe">角パイプ</option>
+        </select>
+
+        <label>材質</label>
+        <select id="material"></select>
+
+        <div id="shapeInputs" class="grid"></div>
+
+        <label>数量</label>
+        <input id="qty" type="number" min="1" step="1" value="1" />
+
+        <div class="result">
+          <div>
+            <span>1個あたり</span>
+            <strong id="weightEach">0 kg</strong>
+          </div>
+          <div>
+            <span>合計</span>
+            <strong id="weightTotal">0 kg</strong>
+          </div>
+        </div>
+
+        <button id="copyWeight" class="primary">結果をコピー</button>
+      </div>
+    </section>
+
+    <section id="convert" class="panel">
+      <div class="card">
+        <h2>単位換算</h2>
+
+        <label>カテゴリ</label>
+        <select id="convertType">
+          <option value="length">長さ</option>
+          <option value="weight">重量</option>
+          <option value="pressure">圧力</option>
+          <option value="temperature">温度</option>
+        </select>
+
+        <div class="converter">
+          <input id="convertValue" type="number" step="any" placeholder="値を入力" />
+          <select id="convertFrom"></select>
+          <span>→</span>
+          <select id="convertTo"></select>
+        </div>
+
+        <div class="single-result">
+          <span>結果</span>
+          <strong id="convertResult">0</strong>
+        </div>
+
+        <button id="copyConvert" class="primary">結果をコピー</button>
+      </div>
+    </section>
+
+    <section id="cost" class="panel">
+      <div class="card">
+        <h2>材料費・概算</h2>
+
+        <label>重量 kg</label>
+        <input id="costWeight" type="number" step="any" placeholder="重量計算から入力可" />
+
+        <label>材料単価 / kg</label>
+        <input id="unitPrice" type="number" step="any" placeholder="例: 2.5" />
+
+        <label>ロス率 %</label>
+        <input id="lossRate" type="number" step="any" value="10" />
+
+        <label>加工費</label>
+        <input id="processCost" type="number" step="any" value="0" />
+
+        <label>管理費 %</label>
+        <input id="overheadRate" type="number" step="any" value="15" />
+
+        <label>利益率 %</label>
+        <input id="profitRate" type="number" step="any" value="20" />
+
+        <div class="result vertical">
+          <div><span>材料費</span><strong id="materialCost">$0.00</strong></div>
+          <div><span>ロス込み材料費</span><strong id="materialCostLoss">$0.00</strong></div>
+          <div><span>概算見積</span><strong id="estimateCost">$0.00</strong></div>
+        </div>
+
+        <button id="copyCost" class="primary">見積結果をコピー</button>
+      </div>
+    </section>
+
+    <section id="settings" class="panel">
+      <div class="card">
+        <h2>設定</h2>
+        <p class="note">密度は g/cm³。必要に応じて自社向けに変更できます。</p>
+        <div id="materialSettings"></div>
+        <button id="saveSettings" class="primary">設定を保存</button>
+        <button id="resetSettings" class="ghost">初期値に戻す</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>GitHub Pages / PWA Ready</span>
+  </footer>
+
+  <script src="./app.js"></script>
+</body>
+</html>
