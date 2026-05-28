@@ -1,13 +1,173 @@
 <!doctype html>
-<html lang="ja">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PDF Inspection Marker</title>
-    <script type="module" crossorigin src="./assets/index-BE-ys_KN.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-B8rtCbDN.css">
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Factory Calc Tools</title>
+  <meta name="theme-color" content="#1f2937">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="./manifest.json">
+  <link rel="stylesheet" href="./style.css?v=inline-info1">
+</head>
+<body>
+  <header class="app-header">
+    <div>
+      <h1 data-i18n="appTitle">Factory Calc Tools</h1>
+      <p data-i18n="appSubtitle">Quick calculators for unit conversion, weight, welding time, and machining time</p>
+    </div>
+    <div class="header-actions">
+      <button id="installBtn" class="ghost hidden" data-i18n="install">Install</button>
+    </div>
+  </header>
+
+  <nav class="top-nav">
+    <button id="menuToggle" class="nav-button menu-button" type="button" aria-expanded="false" aria-controls="navMenu">
+      <span class="hamburger-icon">☰</span>
+      <span id="currentTabLabel" data-i18n="tabConvert">Convert</span>
+    </button>
+    <button id="settingsShortcut" class="nav-button icon-button" type="button" aria-label="Settings" data-tab="settings">⚙</button>
+  </nav>
+
+  <div id="navMenu" class="nav-menu hidden">
+    <button class="menu-item active" data-tab="convert" data-i18n="tabConvert">Convert</button>
+    <button class="menu-item" data-tab="weight" data-i18n="tabWeight">Weight</button>
+    <button class="menu-item" data-tab="welding" data-i18n="tabWelding">Welding</button>
+    <button class="menu-item" data-tab="machining" data-i18n="tabMachining">Machining</button>
+  </div>
+
+  <main>
+    <section id="convert" class="panel active">
+      <div class="card">
+        <div class="section-title"><h2 data-i18n="unitConversion">Unit Conversion</h2><button class="info-btn" type="button" data-i18n-tooltip="unitConversionInfo" aria-label="Info">i</button></div>
+        <label data-i18n="category">Category</label>
+        <select id="convertType">
+          <option value="length" data-i18n="length">Length</option>
+          <option value="weight" data-i18n="weightUnit">Weight</option>
+          <option value="pressure" data-i18n="pressure">Pressure</option>
+          <option value="temperature" data-i18n="temperature">Temperature</option>
+          <option value="area" data-i18n="area">Area</option>
+          <option value="volume" data-i18n="volume">Volume</option>
+        </select>
+
+        <div class="converter">
+          <input id="convertValue" type="number" step="any" data-i18n-placeholder="enterValue" placeholder="Enter value">
+          <select id="convertFrom"></select>
+          <span>→</span>
+          <select id="convertTo"></select>
+        </div>
+
+        <div class="single-result">
+          <span data-i18n="result">Result</span>
+          <strong id="convertResult">0</strong>
+        </div>
+        <button id="copyConvert" class="primary" data-i18n="copyResult">Copy Result</button>
+      </div>
+    </section>
+
+    <section id="weight" class="panel">
+      <div class="card">
+        <div class="section-title"><h2 data-i18n="weightCalculator">Weight Calculator</h2><button id="weightInfoBtn" class="info-btn" type="button" aria-label="Info">i</button></div>
+        <label data-i18n="shape">Shape</label>
+        <select id="shape">
+          <option value="plate" data-i18n="plate">Plate / Flat Bar</option>
+          <option value="round" data-i18n="roundBar">Round Bar</option>
+          <option value="square" data-i18n="squareBar">Square / Rectangular Bar</option>
+          <option value="hex" data-i18n="hexBar">Hex Bar</option>
+          <option value="roundPipe" data-i18n="roundPipe">Round Pipe</option>
+          <option value="squarePipe" data-i18n="squarePipe">Square / Rectangular Pipe</option>
+        </select>
+
+        <label data-i18n="material">Material</label>
+        <select id="material"></select>
+
+        <div id="shapeInputs" class="grid"></div>
+
+        <label data-i18n="quantity">Quantity</label>
+        <input id="qty" type="number" min="1" step="1" value="1">
+
+        <div class="result">
+          <div><span data-i18n="weightPerPiece">Weight per piece</span><strong id="weightEach">0 kg</strong></div>
+          <div><span data-i18n="totalWeight">Total weight</span><strong id="weightTotal">0 kg</strong></div>
+        </div>
+        <button id="copyWeight" class="primary" data-i18n="copyResult">Copy Result</button>
+      </div>
+    </section>
+
+    <section id="welding" class="panel">
+      <div class="card">
+        <div class="section-title"><h2 data-i18n="weldingTimeCalculator">Welding Time Calculator</h2><button class="info-btn" type="button" data-i18n-tooltip="weldingNote" aria-label="Info">i</button></div>
+        <div class="grid">
+          <div><label data-i18n="totalWeldLength">Total weld length mm / pc</label><input id="weldLength" type="number" step="any" value="1000"></div>
+          <div><label data-i18n="legLength">Leg length mm</label><input id="weldLegLength" type="number" step="any" value="6"></div>
+          <div><label data-i18n="weldingSpeed">Welding speed mm/min</label><input id="weldSpeed" type="number" step="any" value="300"></div>
+          <div><label data-i18n="assistMoveTime">Assist / move time sec / pc</label><input id="weldAssistSec" type="number" step="any" value="30"></div>
+          <div><label data-i18n="quantityPcs">Quantity pcs</label><input id="weldQty" type="number" step="1" value="1"></div>
+          <div><label data-i18n="gasFlow">Gas flow L/min</label><input id="gasFlow" type="number" step="any" value="15"></div>
+        </div>
+
+        <details class="advanced">
+          <summary data-i18n="advancedSettings">Advanced settings</summary>
+          <div class="grid">
+            <div><label data-i18n="depositionEfficiency">Deposition efficiency %</label><input id="depositionEfficiency" type="number" step="any" value="92"></div>
+            <div><label data-i18n="reinforcementFactor">Reinforcement factor</label><input id="reinforcementFactor" type="number" step="any" value="1.15"></div>
+            <div><label data-i18n="weldMetalDensity">Weld metal density g/cm³</label><input id="weldMetalDensity" type="number" step="any" value="7.85"></div>
+          </div>
+        </details>
+
+        <div class="result vertical">
+          <div><span data-i18n="arcTimePc">Arc time / pc</span><strong id="arcTimeEach">0 min</strong></div>
+          <div><span data-i18n="workTimePc">Work time / pc</span><strong id="workTimeEach">0 min</strong></div>
+          <div><span data-i18n="totalWorkTime">Total work time</span><strong id="workTimeTotal">0 min</strong></div>
+          <div><span data-i18n="gasUsage">Gas usage</span><strong id="gasUsage">0 L</strong></div>
+          <div><span data-i18n="weldMetalWeight">Weld metal weight</span><strong id="weldMetalWeight">0 kg</strong></div>
+          <div><span data-i18n="wireUsage">Wire usage</span><strong id="wireUsage">0 kg</strong></div>
+        </div>
+        <button id="copyWelding" class="primary" data-i18n="copyResult">Copy Result</button>
+      </div>
+    </section>
+
+    <section id="machining" class="panel">
+      <div class="card">
+        <div class="section-title"><h2 data-i18n="machiningTimeCalculator">Machining Time Calculator</h2><button id="machiningInfoBtn" class="info-btn" type="button" aria-label="Info">i</button></div>
+        <label data-i18n="calculationType">Calculation type</label>
+        <select id="machiningType">
+          <option value="milling" data-i18n="milling">Machining / Milling</option>
+          <option value="turning" data-i18n="turning">Turning</option>
+          <option value="drilling" data-i18n="drilling">Drilling</option>
+        </select>
+
+        <div id="machiningInputs" class="grid"></div>
+        <div class="result vertical">
+          <div><span data-i18n="spindleSpeed">Spindle speed</span><strong id="rpmResult">0 rpm</strong></div>
+          <div><span data-i18n="feedRate">Feed rate</span><strong id="feedResult">0 mm/min</strong></div>
+          <div><span data-i18n="machiningTimePc">Machining time / pc</span><strong id="machiningTimeEach">0 min</strong></div>
+          <div><span data-i18n="totalMachiningTime">Total machining time</span><strong id="machiningTimeTotal">0 min</strong></div>
+        </div>
+        <button id="copyMachining" class="primary" data-i18n="copyResult">Copy Result</button>
+      </div>
+    </section>
+
+    <section id="settings" class="panel">
+      <div class="card">
+        <div class="section-title"><h2 data-i18n="settings">Settings</h2><button class="info-btn" type="button" data-i18n-tooltip="densityNote" aria-label="Info">i</button></div>
+
+        <label data-i18n="language">Language</label>
+        <select id="langSelect" class="lang-select" aria-label="Language">
+          <option value="en">English</option>
+          <option value="ja">日本語</option>
+          <option value="th">ไทย</option>
+          <option value="id">Indonesia</option>
+          <option value="zh">中文</option>
+        </select>
+
+        <div id="materialSettings"></div>
+        <button id="saveSettings" class="primary" data-i18n="saveSettings">Save Settings</button>
+        <button id="resetSettings" class="ghost" data-i18n="resetDefaults">Reset to Defaults</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>GitHub Pages / PWA Ready</footer>
+  <script src="./app.js?v=inline-info1"></script>
+</body>
 </html>
