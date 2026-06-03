@@ -1,7 +1,7 @@
 const I18N = {
   en: {
-    appTitle:"Factory Calc Tools", appSubtitle:"Quick calculators for unit conversion, weight, welding time, and machining time",
-    install:"Install", language:"Language", tabConvert:"Convert", tabWeight:"Weight", tabWelding:"Welding", tabMachining:"Machining", tabSettings:"Settings",
+    appTitle:"Factory Calc Tools", appSubtitle:"Quick calculators for unit conversion, weight, welding time, press load, and machining time",
+    install:"Install", language:"Language", tabConvert:"Convert", tabWeight:"Weight", tabWelding:"Welding", tabPress:"Press", tabMachining:"Machining", tabSettings:"Settings",
     unitConversion:"Unit Conversion", unitConversionInfo:"Convert common factory units such as length, weight, pressure, temperature, area, and volume.", category:"Category", length:"Length", weightUnit:"Weight", pressure:"Pressure", temperature:"Temperature", area:"Area", volume:"Volume",
     enterValue:"Enter value", result:"Result", copyResult:"Copy Result",
     weightCalculator:"Weight Calculator", shape:"Shape", plate:"Plate / Flat Bar", roundBar:"Round Bar", squareBar:"Square / Rectangular Bar", hexBar:"Hex Bar", roundPipe:"Round Pipe", squarePipe:"Square / Rectangular Pipe",
@@ -13,6 +13,7 @@ const I18N = {
     arcTimePc:"Arc time / pc", workTimePc:"Work time / pc", totalWorkTime:"Total work time", gasUsage:"Gas usage", wireUsage:"Wire usage",
     machiningTimeCalculator:"Machining Time Calculator", calculationType:"Calculation type", milling:"Machining / Milling", turning:"Turning", drilling:"Drilling",
     spindleSpeed:"Spindle speed", feedRate:"Feed rate", machiningTimePc:"Machining time / pc", totalMachiningTime:"Total machining time",
+    pressLoadCalculator:"Press Blanking Load Calculator", pressLoadInfo:"Required load N = shear length mm x plate thickness mm x shear strength N/mm² x safety factor.", pressMaterial:"Material", plateThicknessMm:"Plate thickness mm", shearLengthMm:"Blank perimeter / shear length", shearLengthHelp:"Total length of the cut line. This is not surface area.", pressSafetyFactor:"Safety factor", shearStrength:"Shear strength N/mm²", requiredLoadN:"Required load", requiredLoadKn:"Required load", requiredTonnage:"Required tonnage", recommendedPressCapacity:"Recommended press capacity", pressWarningBlanking:"This calculation is a rough estimate for piercing, punching, and blanking. Do not use it for bending, drawing, or forming load calculations.", pressWarningSelection:"For actual press selection, consider die structure, cutting edge condition, clearance, material lot, and safety standards.",
     settings:"Settings", densityNote:"Density is in g/cm³ and is used for weight calculations.", saveSettings:"Save Settings", resetDefaults:"Reset to Defaults",
     steel:"Steel", stainless:"Stainless", aluminum:"Aluminum", brass:"Brass", copper:"Copper",
     lengthMm:"Length mm", widthMm:"Width mm", thicknessMm:"Thickness mm", diameterMm:"Diameter mm", heightMm:"Height mm", acrossFlatsMm:"Across flats mm", outerDiameterMm:"Outer diameter mm", wallThicknessMm:"Wall thickness mm", outerWidthMm:"Outer width mm", outerHeightMm:"Outer height mm",
@@ -111,12 +112,39 @@ const I18N = {
   }
 };
 
+Object.assign(I18N.ja, {
+  tabPress:"プレス",
+  pressLoadCalculator:"プレス抜き荷重計算",
+  pressLoadInfo:"必要荷重 N = せん断長さ mm × 板厚 mm × せん断強さ N/mm² × 安全率",
+  pressMaterial:"材料",
+  plateThicknessMm:"板厚 mm",
+  shearLengthMm:"ブランク外周長 / せん断長さ",
+  shearLengthHelp:"切断される線の合計長さ。表面積ではない。",
+  pressSafetyFactor:"安全率",
+  shearStrength:"せん断強さ N/mm²",
+  requiredLoadN:"必要荷重",
+  requiredLoadKn:"必要荷重",
+  requiredTonnage:"必要トン数",
+  recommendedPressCapacity:"推奨プレス能力",
+  pressWarningBlanking:"この計算は抜き・打ち抜き・ブランキング用の概算です。曲げ加工、絞り加工、成形加工の荷重計算には使用しないでください。",
+  pressWarningSelection:"実際のプレス選定では金型構造、刃先状態、クリアランス、材料ロット、安全基準を考慮してください。"
+});
+
 const DEFAULT_MATERIALS = {
   steel: { density: 7.85 },
   stainless: { density: 7.93 },
   aluminum: { density: 2.70 },
   brass: { density: 8.50 },
   copper: { density: 8.96 }
+};
+
+const PRESS_MATERIALS = {
+  SPCC: 300,
+  SS400: 350,
+  A36: 350,
+  SUS304: 550,
+  SUS316: 520,
+  AL5052: 180
 };
 
 let currentLang = localStorage.getItem("lang") || "en";
@@ -155,6 +183,8 @@ function applyLanguage() {
   renderSettings();
   renderConverterUnits();
   calcWelding();
+  updatePressMaterial();
+  calcPressLoad();
 
   const activePanel = document.querySelector(".panel.active");
   if (activePanel && window.setActiveTab) {
@@ -173,6 +203,7 @@ function initTabs() {
       convert: "tabConvert",
       weight: "tabWeight",
       welding: "tabWelding",
+      press: "tabPress",
       machining: "tabMachining",
       settings: "tabSettings"
     };
@@ -386,6 +417,61 @@ function calcWelding() {
   $("wireUsage").textContent = `${fmt(wireKg)} kg`;
 }
 
+function positiveNum(id) {
+  const el = $(id);
+  if (!el || el.value === "") return null;
+  const value = parseFloat(el.value);
+  return Number.isFinite(value) && value > 0 ? value : null;
+}
+
+function updatePressMaterial() {
+  const material = $("pressMaterial")?.value || "SPCC";
+  const strengthInput = $("pressShearStrength");
+  if (!strengthInput) return;
+
+  if (material === "custom") {
+    const wasReadOnly = strengthInput.readOnly;
+    strengthInput.readOnly = false;
+    strengthInput.removeAttribute("aria-readonly");
+    if (wasReadOnly) strengthInput.value = "";
+  } else {
+    strengthInput.value = PRESS_MATERIALS[material];
+    strengthInput.readOnly = true;
+    strengthInput.setAttribute("aria-readonly", "true");
+  }
+}
+
+function setPressEmpty() {
+  $("pressLoadN").textContent = "- N";
+  $("pressLoadKn").textContent = "- kN";
+  $("pressTonf").textContent = "- tonf";
+  $("pressRecommendedTonf").textContent = "- tonf";
+}
+
+function calcPressLoad() {
+  const thickness = positiveNum("pressThickness");
+  const shearLength = positiveNum("pressShearLength");
+  const safetyFactor = positiveNum("pressSafetyFactor");
+  const shearStrength = positiveNum("pressShearStrength");
+
+  if (!thickness || !shearLength || !safetyFactor || !shearStrength) {
+    setPressEmpty();
+    return null;
+  }
+
+  const loadN = shearLength * thickness * shearStrength * safetyFactor;
+  const loadKn = loadN / 1000;
+  const tonf = loadN / 9806.65;
+  const recommendedTonf = tonf * 1.2;
+
+  $("pressLoadN").textContent = `${fmt(loadN, 0)} N`;
+  $("pressLoadKn").textContent = `${fmt(loadKn, 1)} kN`;
+  $("pressTonf").textContent = `${fmt(tonf, 1)} tonf`;
+  $("pressRecommendedTonf").textContent = `${fmt(recommendedTonf, 1)} tonf以上`;
+
+  return { loadN, loadKn, tonf, recommendedTonf };
+}
+
 const MACHINING_FIELDS = {
   milling: [
     ["cuttingSpeed", "cuttingSpeed", 100],
@@ -486,6 +572,9 @@ function initCopyButtons() {
   $("copyWelding").addEventListener("click", () => {
     copyText(`${t("tabWelding")}: ${t("arcTimePc")} ${$("arcTimeEach").textContent}, ${t("workTimePc")} ${$("workTimeEach").textContent}, ${t("totalWorkTime")} ${$("workTimeTotal").textContent}, ${t("gasUsage")} ${$("gasUsage").textContent}, ${t("weldMetalWeight")} ${$("weldMetalWeight").textContent}, ${t("wireUsage")} ${$("wireUsage").textContent}`);
   });
+  $("copyPress").addEventListener("click", () => {
+    copyText(`${t("tabPress")}: ${t("requiredLoadN")} ${$("pressLoadN").textContent}, ${t("requiredLoadKn")} ${$("pressLoadKn").textContent}, ${t("requiredTonnage")} ${$("pressTonf").textContent}, ${t("recommendedPressCapacity")} ${$("pressRecommendedTonf").textContent}`);
+  });
   $("copyMachining").addEventListener("click", () => {
     copyText(`${t("tabMachining")}: ${$("rpmResult").textContent}, ${$("feedResult").textContent}, ${t("machiningTimePc")} ${$("machiningTimeEach").textContent}, ${t("totalMachiningTime")} ${$("machiningTimeTotal").textContent}`);
   });
@@ -560,6 +649,14 @@ function init() {
   $("qty").addEventListener("input", calcWeight);
 
   ["weldLength", "weldLegLength", "weldSpeed", "weldAssistSec", "weldQty", "gasFlow", "depositionEfficiency", "reinforcementFactor", "weldMetalDensity"].forEach(id => $(id).addEventListener("input", calcWelding));
+  $("pressMaterial").addEventListener("change", () => {
+    updatePressMaterial();
+    calcPressLoad();
+  });
+  ["pressThickness", "pressShearLength", "pressSafetyFactor", "pressShearStrength"].forEach(id => {
+    $(id).addEventListener("input", calcPressLoad);
+    $(id).addEventListener("change", calcPressLoad);
+  });
   $("machiningType").addEventListener("change", renderMachiningInputs);
 
   $("saveSettings").addEventListener("click", () => {

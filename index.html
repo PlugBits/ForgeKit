@@ -7,13 +7,13 @@
   <meta name="theme-color" content="#1f2937">
   <link rel="icon" href="./icon.svg" type="image/svg+xml">
   <link rel="manifest" href="./manifest.json">
-  <link rel="stylesheet" href="./style.css?v=inline-info1">
+  <link rel="stylesheet" href="./style.css?v=press-load1">
 </head>
 <body>
   <header class="app-header">
     <div>
       <h1 data-i18n="appTitle">Factory Calc Tools</h1>
-      <p data-i18n="appSubtitle">Quick calculators for unit conversion, weight, welding time, and machining time</p>
+      <p data-i18n="appSubtitle">Quick calculators for unit conversion, weight, welding time, press load, and machining time</p>
     </div>
     <div class="header-actions">
       <button id="installBtn" class="ghost hidden" data-i18n="install">Install</button>
@@ -32,6 +32,7 @@
     <button class="menu-item active" data-tab="convert" data-i18n="tabConvert">Convert</button>
     <button class="menu-item" data-tab="weight" data-i18n="tabWeight">Weight</button>
     <button class="menu-item" data-tab="welding" data-i18n="tabWelding">Welding</button>
+    <button class="menu-item" data-tab="press" data-i18n="tabPress">Press</button>
     <button class="menu-item" data-tab="machining" data-i18n="tabMachining">Machining</button>
   </div>
 
@@ -126,6 +127,62 @@
       </div>
     </section>
 
+    <section id="press" class="panel">
+      <div class="card">
+        <div class="section-title"><h2 data-i18n="pressLoadCalculator">Press Blanking Load Calculator</h2><button class="info-btn" type="button" data-i18n-tooltip="pressLoadInfo" aria-label="Info">i</button></div>
+        <div class="grid">
+          <div>
+            <label data-i18n="pressMaterial">Material</label>
+            <select id="pressMaterial">
+              <option value="SPCC">SPCC</option>
+              <option value="SS400">SS400</option>
+              <option value="A36">A36</option>
+              <option value="SUS304">SUS304</option>
+              <option value="SUS316">SUS316</option>
+              <option value="AL5052">AL5052</option>
+              <option value="custom">Custom</option>
+            </select>
+          </div>
+          <div>
+            <label data-i18n="plateThicknessMm">Plate thickness mm</label>
+            <input id="pressThickness" type="number" step="any" min="0" placeholder="3.2">
+          </div>
+          <div>
+            <label data-i18n="shearLengthMm">Blank perimeter / shear length</label>
+            <input id="pressShearLength" type="number" step="any" min="0" placeholder="500">
+            <p class="field-help" data-i18n="shearLengthHelp">Total length of the cut line. This is not surface area.</p>
+          </div>
+          <div>
+            <label data-i18n="pressSafetyFactor">Safety factor</label>
+            <select id="pressSafetyFactor">
+              <option value="1.0">1.0</option>
+              <option value="1.1">1.1</option>
+              <option value="1.2" selected>1.2</option>
+              <option value="1.3">1.3</option>
+              <option value="1.5">1.5</option>
+            </select>
+          </div>
+          <div id="pressShearStrengthGroup">
+            <label data-i18n="shearStrength">Shear strength N/mm²</label>
+            <input id="pressShearStrength" type="number" step="any" min="0" value="300">
+          </div>
+        </div>
+
+        <div class="result vertical">
+          <div><span data-i18n="requiredLoadN">Required load</span><strong id="pressLoadN">- N</strong></div>
+          <div><span data-i18n="requiredLoadKn">Required load</span><strong id="pressLoadKn">- kN</strong></div>
+          <div><span data-i18n="requiredTonnage">Required tonnage</span><strong id="pressTonf">- tonf</strong></div>
+          <div><span data-i18n="recommendedPressCapacity">Recommended press capacity</span><strong id="pressRecommendedTonf">- tonf</strong></div>
+        </div>
+
+        <div class="note-block">
+          <p data-i18n="pressWarningBlanking">This calculation is a rough estimate for piercing, punching, and blanking. Do not use it for bending, drawing, or forming load calculations.</p>
+          <p data-i18n="pressWarningSelection">For actual press selection, consider die structure, cutting edge condition, clearance, material lot, and safety standards.</p>
+        </div>
+        <button id="copyPress" class="primary" data-i18n="copyResult">Copy Result</button>
+      </div>
+    </section>
+
     <section id="machining" class="panel">
       <div class="card">
         <div class="section-title"><h2 data-i18n="machiningTimeCalculator">Machining Time Calculator</h2><button id="machiningInfoBtn" class="info-btn" type="button" aria-label="Info">i</button></div>
@@ -168,6 +225,6 @@
   </main>
 
   <footer>GitHub Pages / PWA Ready</footer>
-  <script src="./app.js?v=inline-info1"></script>
+  <script src="./app.js?v=press-load1"></script>
 </body>
 </html>

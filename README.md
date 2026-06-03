@@ -29,6 +29,13 @@ A lightweight multilingual PWA for factory calculations.
   - Gas usage based on arc time
   - Weld metal weight
   - Wire usage based on weld volume, reinforcement factor, and deposition efficiency
+- Press blanking load calculator
+  - Material shear strength presets
+  - Plate thickness
+  - Blank perimeter / shear length
+  - Safety factor
+  - Required load in N, kN, and tonf
+  - Recommended press capacity
 - Machining time calculator
   - Milling
   - Turning
