@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#1f2937">
   <link rel="icon" href="./icon.svg" type="image/svg+xml">
   <link rel="manifest" href="./manifest.json">
-  <link rel="stylesheet" href="./style.css?v=press-load1">
+  <link rel="stylesheet" href="./style.css?v=desktop-history1">
 </head>
 <body>
   <header class="app-header">
@@ -20,6 +20,8 @@
     </div>
   </header>
 
+  <div class="app-shell">
+    <aside class="sidebar">
   <nav class="top-nav">
     <button id="menuToggle" class="nav-button menu-button" type="button" aria-expanded="false" aria-controls="navMenu">
       <span class="hamburger-icon">☰</span>
@@ -34,9 +36,11 @@
     <button class="menu-item" data-tab="welding" data-i18n="tabWelding">Welding</button>
     <button class="menu-item" data-tab="press" data-i18n="tabPress">Press</button>
     <button class="menu-item" data-tab="machining" data-i18n="tabMachining">Machining</button>
+    <button class="menu-item sidebar-settings" data-tab="settings" data-i18n="tabSettings">Settings</button>
   </div>
+    </aside>
 
-  <main>
+  <main class="workspace-main">
     <section id="convert" class="panel active">
       <div class="card">
         <div class="section-title"><h2 data-i18n="unitConversion">Unit Conversion</h2><button class="info-btn" type="button" data-i18n-tooltip="unitConversionInfo" aria-label="Info">i</button></div>
@@ -61,7 +65,10 @@
           <span data-i18n="result">Result</span>
           <strong id="convertResult">0</strong>
         </div>
-        <button id="copyConvert" class="primary" data-i18n="copyResult">Copy Result</button>
+        <div class="action-row">
+          <button id="copyConvert" class="primary" data-i18n="copyResult">Copy Result</button>
+          <button class="secondary" type="button" data-save-history="convert" data-i18n="saveHistory">Save to History</button>
+        </div>
       </div>
     </section>
 
@@ -90,7 +97,10 @@
           <div><span data-i18n="weightPerPiece">Weight per piece</span><strong id="weightEach">0 kg</strong></div>
           <div><span data-i18n="totalWeight">Total weight</span><strong id="weightTotal">0 kg</strong></div>
         </div>
-        <button id="copyWeight" class="primary" data-i18n="copyResult">Copy Result</button>
+        <div class="action-row">
+          <button id="copyWeight" class="primary" data-i18n="copyResult">Copy Result</button>
+          <button class="secondary" type="button" data-save-history="weight" data-i18n="saveHistory">Save to History</button>
+        </div>
       </div>
     </section>
 
@@ -123,7 +133,10 @@
           <div><span data-i18n="weldMetalWeight">Weld metal weight</span><strong id="weldMetalWeight">0 kg</strong></div>
           <div><span data-i18n="wireUsage">Wire usage</span><strong id="wireUsage">0 kg</strong></div>
         </div>
-        <button id="copyWelding" class="primary" data-i18n="copyResult">Copy Result</button>
+        <div class="action-row">
+          <button id="copyWelding" class="primary" data-i18n="copyResult">Copy Result</button>
+          <button class="secondary" type="button" data-save-history="welding" data-i18n="saveHistory">Save to History</button>
+        </div>
       </div>
     </section>
 
@@ -179,7 +192,10 @@
           <p data-i18n="pressWarningBlanking">This calculation is a rough estimate for piercing, punching, and blanking. Do not use it for bending, drawing, or forming load calculations.</p>
           <p data-i18n="pressWarningSelection">For actual press selection, consider die structure, cutting edge condition, clearance, material lot, and safety standards.</p>
         </div>
-        <button id="copyPress" class="primary" data-i18n="copyResult">Copy Result</button>
+        <div class="action-row">
+          <button id="copyPress" class="primary" data-i18n="copyResult">Copy Result</button>
+          <button class="secondary" type="button" data-save-history="press" data-i18n="saveHistory">Save to History</button>
+        </div>
       </div>
     </section>
 
@@ -200,7 +216,10 @@
           <div><span data-i18n="machiningTimePc">Machining time / pc</span><strong id="machiningTimeEach">0 min</strong></div>
           <div><span data-i18n="totalMachiningTime">Total machining time</span><strong id="machiningTimeTotal">0 min</strong></div>
         </div>
-        <button id="copyMachining" class="primary" data-i18n="copyResult">Copy Result</button>
+        <div class="action-row">
+          <button id="copyMachining" class="primary" data-i18n="copyResult">Copy Result</button>
+          <button class="secondary" type="button" data-save-history="machining" data-i18n="saveHistory">Save to History</button>
+        </div>
       </div>
     </section>
 
@@ -224,7 +243,16 @@
     </section>
   </main>
 
+    <aside class="history-panel" aria-labelledby="historyTitle">
+      <div class="history-header">
+        <h2 id="historyTitle" data-i18n="calculationHistory">Calculation History</h2>
+        <button id="clearHistory" class="ghost compact" type="button" data-i18n="clearHistory">Clear</button>
+      </div>
+      <div id="historyList" class="history-list"></div>
+    </aside>
+  </div>
+
   <footer>GitHub Pages / PWA Ready</footer>
-  <script src="./app.js?v=press-load1"></script>
+  <script src="./app.js?v=desktop-history1"></script>
 </body>
 </html>

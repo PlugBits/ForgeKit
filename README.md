@@ -12,6 +12,11 @@ A lightweight multilingual PWA for factory calculations.
 
 ## Features
 
+- Desktop workbench layout
+  - Left navigation
+  - Main calculator workspace
+  - Saved calculation history
+  - Restore / delete / clear history actions
 - Unit conversion
   - Length, weight, pressure, temperature, area, volume
 - Weight calculator

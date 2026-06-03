@@ -3,7 +3,7 @@ const I18N = {
     appTitle:"Factory Calc Tools", appSubtitle:"Quick calculators for unit conversion, weight, welding time, press load, and machining time",
     install:"Install", language:"Language", tabConvert:"Convert", tabWeight:"Weight", tabWelding:"Welding", tabPress:"Press", tabMachining:"Machining", tabSettings:"Settings",
     unitConversion:"Unit Conversion", unitConversionInfo:"Convert common factory units such as length, weight, pressure, temperature, area, and volume.", category:"Category", length:"Length", weightUnit:"Weight", pressure:"Pressure", temperature:"Temperature", area:"Area", volume:"Volume",
-    enterValue:"Enter value", result:"Result", copyResult:"Copy Result",
+    enterValue:"Enter value", result:"Result", copyResult:"Copy Result", saveHistory:"Save to History", calculationHistory:"Calculation History", clearHistory:"Clear", noHistory:"No saved calculations yet.", restoreHistory:"Restore", deleteHistory:"Delete",
     weightCalculator:"Weight Calculator", shape:"Shape", plate:"Plate / Flat Bar", roundBar:"Round Bar", squareBar:"Square / Rectangular Bar", hexBar:"Hex Bar", roundPipe:"Round Pipe", squarePipe:"Square / Rectangular Pipe",
     material:"Material", quantity:"Quantity", weightPerPiece:"Weight per piece", totalWeight:"Total weight",
     weldingTimeCalculator:"Welding Time Calculator",
@@ -126,6 +126,12 @@ Object.assign(I18N.ja, {
   requiredLoadKn:"必要荷重",
   requiredTonnage:"必要トン数",
   recommendedPressCapacity:"推奨プレス能力",
+  saveHistory:"履歴に保存",
+  calculationHistory:"計算履歴",
+  clearHistory:"クリア",
+  noHistory:"保存した計算はまだありません。",
+  restoreHistory:"復元",
+  deleteHistory:"削除",
   pressWarningBlanking:"この計算は抜き・打ち抜き・ブランキング用の概算です。曲げ加工、絞り加工、成形加工の荷重計算には使用しないでください。",
   pressWarningSelection:"実際のプレス選定では金型構造、刃先状態、クリアランス、材料ロット、安全基準を考慮してください。"
 });
@@ -147,8 +153,12 @@ const PRESS_MATERIALS = {
   AL5052: 180
 };
 
+const HISTORY_KEY = "calculationHistory";
+const MAX_HISTORY = 50;
+
 let currentLang = localStorage.getItem("lang") || "en";
 let materials = loadJson("materials", DEFAULT_MATERIALS);
+let calcHistory = loadJson(HISTORY_KEY, []);
 let deferredInstallPrompt = null;
 
 const $ = (id) => document.getElementById(id);
@@ -185,6 +195,7 @@ function applyLanguage() {
   calcWelding();
   updatePressMaterial();
   calcPressLoad();
+  renderHistory();
 
   const activePanel = document.querySelector(".panel.active");
   if (activePanel && window.setActiveTab) {
@@ -561,6 +572,242 @@ function renderSettings() {
   });
 }
 
+function setValue(id, value) {
+  const el = $(id);
+  if (el && value !== undefined && value !== null) el.value = value;
+}
+
+function makeHistoryRecord(type, title, summary, inputs, results, values) {
+  return {
+    id: `${Date.now()}-${Math.random().toString(36).slice(2)}`,
+    type,
+    title,
+    summary,
+    inputs,
+    results,
+    values,
+    createdAt: new Date().toISOString()
+  };
+}
+
+function buildHistoryRecord(type) {
+  if (type === "convert") {
+    if ($("convertValue").value === "") return null;
+    const from = $("convertFrom").selectedOptions[0]?.textContent || "";
+    const to = $("convertTo").selectedOptions[0]?.textContent || "";
+    return makeHistoryRecord(
+      type,
+      t("unitConversion"),
+      `${$("convertValue").value} ${from} = ${$("convertResult").textContent} ${to}`,
+      [`${t("category")}: ${t($("convertType").value)}`, `From: ${from}`, `To: ${to}`],
+      [`${t("result")}: ${$("convertResult").textContent} ${to}`],
+      { convertType: $("convertType").value, convertValue: $("convertValue").value, convertFrom: $("convertFrom").value, convertTo: $("convertTo").value }
+    );
+  }
+
+  if (type === "weight") {
+    const values = { shape: $("shape").value, material: $("material").value, qty: $("qty").value, fields: {} };
+    $("shapeInputs").querySelectorAll("input").forEach(input => values.fields[input.id] = input.value);
+    if (Object.values(values.fields).every(value => value === "")) return null;
+    return makeHistoryRecord(
+      type,
+      t("weightCalculator"),
+      `${$("weightTotal").textContent}`,
+      [`${t("shape")}: ${$("shape").selectedOptions[0]?.textContent || ""}`, `${t("material")}: ${$("material").selectedOptions[0]?.textContent || ""}`, `${t("quantity")}: ${$("qty").value}`],
+      [`${t("weightPerPiece")}: ${$("weightEach").textContent}`, `${t("totalWeight")}: ${$("weightTotal").textContent}`],
+      values
+    );
+  }
+
+  if (type === "welding") {
+    return makeHistoryRecord(
+      type,
+      t("weldingTimeCalculator"),
+      `${$("workTimeTotal").textContent}`,
+      [`${t("totalWeldLength")}: ${$("weldLength").value}`, `${t("legLength")}: ${$("weldLegLength").value}`, `${t("weldingSpeed")}: ${$("weldSpeed").value}`, `${t("quantityPcs")}: ${$("weldQty").value}`],
+      [`${t("arcTimePc")}: ${$("arcTimeEach").textContent}`, `${t("totalWorkTime")}: ${$("workTimeTotal").textContent}`, `${t("gasUsage")}: ${$("gasUsage").textContent}`, `${t("wireUsage")}: ${$("wireUsage").textContent}`],
+      {
+        weldLength: $("weldLength").value,
+        weldLegLength: $("weldLegLength").value,
+        weldSpeed: $("weldSpeed").value,
+        weldAssistSec: $("weldAssistSec").value,
+        weldQty: $("weldQty").value,
+        gasFlow: $("gasFlow").value,
+        depositionEfficiency: $("depositionEfficiency").value,
+        reinforcementFactor: $("reinforcementFactor").value,
+        weldMetalDensity: $("weldMetalDensity").value
+      }
+    );
+  }
+
+  if (type === "press") {
+    const result = calcPressLoad();
+    if (!result) return null;
+    return makeHistoryRecord(
+      type,
+      t("pressLoadCalculator"),
+      `${$("pressRecommendedTonf").textContent}`,
+      [`${t("pressMaterial")}: ${$("pressMaterial").selectedOptions[0]?.textContent || ""}`, `${t("plateThicknessMm")}: ${$("pressThickness").value} mm`, `${t("shearLengthMm")}: ${$("pressShearLength").value} mm`, `${t("shearStrength")}: ${$("pressShearStrength").value} N/mm²`, `${t("pressSafetyFactor")}: ${$("pressSafetyFactor").value}`],
+      [`${t("requiredLoadN")}: ${$("pressLoadN").textContent}`, `${t("requiredLoadKn")}: ${$("pressLoadKn").textContent}`, `${t("requiredTonnage")}: ${$("pressTonf").textContent}`, `${t("recommendedPressCapacity")}: ${$("pressRecommendedTonf").textContent}`],
+      { pressMaterial: $("pressMaterial").value, pressThickness: $("pressThickness").value, pressShearLength: $("pressShearLength").value, pressSafetyFactor: $("pressSafetyFactor").value, pressShearStrength: $("pressShearStrength").value }
+    );
+  }
+
+  if (type === "machining") {
+    const values = { machiningType: $("machiningType").value, fields: {} };
+    $("machiningInputs").querySelectorAll("input").forEach(input => values.fields[input.id] = input.value);
+    return makeHistoryRecord(
+      type,
+      t("machiningTimeCalculator"),
+      `${$("machiningTimeTotal").textContent}`,
+      [`${t("calculationType")}: ${$("machiningType").selectedOptions[0]?.textContent || ""}`],
+      [`${t("spindleSpeed")}: ${$("rpmResult").textContent}`, `${t("feedRate")}: ${$("feedResult").textContent}`, `${t("totalMachiningTime")}: ${$("machiningTimeTotal").textContent}`],
+      values
+    );
+  }
+
+  return null;
+}
+
+function saveHistory(type) {
+  const record = buildHistoryRecord(type);
+  if (!record) return;
+  calcHistory = [record, ...calcHistory].slice(0, MAX_HISTORY);
+  saveJson(HISTORY_KEY, calcHistory);
+  renderHistory();
+}
+
+function renderHistory() {
+  const wrap = $("historyList");
+  if (!wrap) return;
+  wrap.innerHTML = "";
+  if (!calcHistory.length) {
+    const empty = document.createElement("p");
+    empty.className = "history-empty";
+    empty.textContent = t("noHistory");
+    wrap.appendChild(empty);
+    return;
+  }
+
+  calcHistory.forEach(record => {
+    const dateText = new Date(record.createdAt).toLocaleString();
+    const item = document.createElement("article");
+    const header = document.createElement("div");
+    const titleWrap = document.createElement("div");
+    const title = document.createElement("h3");
+    const time = document.createElement("time");
+    const summary = document.createElement("strong");
+    const lines = document.createElement("ul");
+    const actions = document.createElement("div");
+    const restoreBtn = document.createElement("button");
+    const deleteBtn = document.createElement("button");
+
+    item.className = "history-item";
+    header.className = "history-item-header";
+    lines.className = "history-lines";
+    actions.className = "history-actions";
+    restoreBtn.className = "ghost compact";
+    deleteBtn.className = "ghost compact danger-lite";
+
+    title.textContent = record.title;
+    time.textContent = dateText;
+    summary.textContent = record.summary;
+    restoreBtn.type = "button";
+    restoreBtn.dataset.restoreHistory = record.id;
+    restoreBtn.textContent = t("restoreHistory");
+    deleteBtn.type = "button";
+    deleteBtn.dataset.deleteHistory = record.id;
+    deleteBtn.textContent = t("deleteHistory");
+
+    titleWrap.appendChild(title);
+    titleWrap.appendChild(time);
+    header.appendChild(titleWrap);
+    header.appendChild(summary);
+    [...(record.inputs || []), ...(record.results || [])].slice(0, 8).forEach(text => {
+      const li = document.createElement("li");
+      li.textContent = text;
+      lines.appendChild(li);
+    });
+    actions.appendChild(restoreBtn);
+    actions.appendChild(deleteBtn);
+    item.appendChild(header);
+    item.appendChild(lines);
+    item.appendChild(actions);
+    wrap.appendChild(item);
+  });
+}
+
+function restoreHistory(record) {
+  if (!record || !record.values) return;
+
+  if (record.type === "convert") {
+    setValue("convertType", record.values.convertType);
+    renderConverterUnits();
+    setValue("convertValue", record.values.convertValue);
+    setValue("convertFrom", record.values.convertFrom);
+    setValue("convertTo", record.values.convertTo);
+    calcConvert();
+  }
+
+  if (record.type === "weight") {
+    setValue("shape", record.values.shape);
+    setValue("material", record.values.material);
+    renderShapeInputs();
+    Object.entries(record.values.fields || {}).forEach(([id, value]) => setValue(id, value));
+    setValue("qty", record.values.qty);
+    calcWeight();
+  }
+
+  if (record.type === "welding") {
+    Object.entries(record.values).forEach(([id, value]) => setValue(id, value));
+    calcWelding();
+  }
+
+  if (record.type === "press") {
+    setValue("pressMaterial", record.values.pressMaterial);
+    updatePressMaterial();
+    setValue("pressThickness", record.values.pressThickness);
+    setValue("pressShearLength", record.values.pressShearLength);
+    setValue("pressSafetyFactor", record.values.pressSafetyFactor);
+    setValue("pressShearStrength", record.values.pressShearStrength);
+    calcPressLoad();
+  }
+
+  if (record.type === "machining") {
+    setValue("machiningType", record.values.machiningType);
+    renderMachiningInputs();
+    Object.entries(record.values.fields || {}).forEach(([id, value]) => setValue(id, value));
+    calcMachining();
+  }
+
+  if (window.setActiveTab) window.setActiveTab(record.type);
+}
+
+function initHistory() {
+  renderHistory();
+
+  document.querySelectorAll("[data-save-history]").forEach(btn => {
+    btn.addEventListener("click", () => saveHistory(btn.dataset.saveHistory));
+  });
+
+  $("historyList").addEventListener("click", (event) => {
+    const restoreId = event.target.dataset.restoreHistory;
+    const deleteId = event.target.dataset.deleteHistory;
+    if (restoreId) restoreHistory(calcHistory.find(record => record.id === restoreId));
+    if (deleteId) {
+      calcHistory = calcHistory.filter(record => record.id !== deleteId);
+      saveJson(HISTORY_KEY, calcHistory);
+      renderHistory();
+    }
+  });
+
+  $("clearHistory").addEventListener("click", () => {
+    calcHistory = [];
+    saveJson(HISTORY_KEY, calcHistory);
+    renderHistory();
+  });
+}
+
 async function copyText(text) { await navigator.clipboard.writeText(text); }
 function initCopyButtons() {
   $("copyConvert").addEventListener("click", () => {
@@ -631,6 +878,7 @@ function init() {
   initTabs();
   initInlineInfo();
   initCopyButtons();
+  initHistory();
   initPwa();
 
   $("langSelect").addEventListener("change", () => {
