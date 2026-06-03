@@ -136,6 +136,78 @@ Object.assign(I18N.ja, {
   pressWarningSelection:"実際のプレス選定では金型構造、刃先状態、クリアランス、材料ロット、安全基準を考慮してください。"
 });
 
+Object.assign(I18N.th, {
+  tabPress:"เพรส",
+  pressLoadCalculator:"คำนวณแรงตัดปั๊มขึ้นรูป",
+  pressLoadInfo:"แรงที่ต้องใช้ N = ความยาวแนวตัด mm × ความหนาแผ่น mm × ความแข็งแรงเฉือน N/mm² × ค่าความปลอดภัย",
+  pressMaterial:"วัสดุ",
+  plateThicknessMm:"ความหนาแผ่น mm",
+  shearLengthMm:"เส้นรอบรูปชิ้นงาน / ความยาวแนวตัด",
+  shearLengthHelp:"ความยาวรวมของเส้นที่ถูกตัด ไม่ใช่พื้นที่ผิว",
+  pressSafetyFactor:"ค่าความปลอดภัย",
+  shearStrength:"ความแข็งแรงเฉือน N/mm²",
+  requiredLoadN:"แรงที่ต้องใช้",
+  requiredLoadKn:"แรงที่ต้องใช้",
+  requiredTonnage:"ตันที่ต้องใช้",
+  recommendedPressCapacity:"กำลังเพรสที่แนะนำ",
+  saveHistory:"บันทึกประวัติ",
+  calculationHistory:"ประวัติการคำนวณ",
+  clearHistory:"ล้าง",
+  noHistory:"ยังไม่มีรายการคำนวณที่บันทึกไว้",
+  restoreHistory:"คืนค่า",
+  deleteHistory:"ลบ",
+  pressWarningBlanking:"การคำนวณนี้เป็นค่าประมาณสำหรับการเจาะ การปั๊มตัด และการตัด blanking เท่านั้น ห้ามใช้กับการคำนวณแรงดัด แรงดึงลึก หรือแรงขึ้นรูป",
+  pressWarningSelection:"ในการเลือกเครื่องเพรสจริง ควรพิจารณาโครงสร้างแม่พิมพ์ สภาพคมตัด ระยะเคลียร์รันซ์ ล็อตวัสดุ และมาตรฐานความปลอดภัย"
+});
+
+Object.assign(I18N.id, {
+  tabPress:"Press",
+  pressLoadCalculator:"Kalkulator Beban Blanking Press",
+  pressLoadInfo:"Beban perlu N = panjang shear mm × tebal plate mm × shear strength N/mm² × safety factor",
+  pressMaterial:"Material",
+  plateThicknessMm:"Tebal plate mm",
+  shearLengthMm:"Keliling blank / panjang shear",
+  shearLengthHelp:"Total panjang garis yang dipotong. Ini bukan luas permukaan.",
+  pressSafetyFactor:"Safety factor",
+  shearStrength:"Shear strength N/mm²",
+  requiredLoadN:"Beban perlu",
+  requiredLoadKn:"Beban perlu",
+  requiredTonnage:"Tonnage perlu",
+  recommendedPressCapacity:"Kapasitas press rekomendasi",
+  saveHistory:"Simpan ke Riwayat",
+  calculationHistory:"Riwayat Perhitungan",
+  clearHistory:"Hapus",
+  noHistory:"Belum ada perhitungan tersimpan.",
+  restoreHistory:"Pulihkan",
+  deleteHistory:"Hapus",
+  pressWarningBlanking:"Perhitungan ini adalah estimasi kasar untuk piercing, punching, dan blanking. Jangan gunakan untuk perhitungan beban bending, drawing, atau forming.",
+  pressWarningSelection:"Untuk pemilihan press aktual, pertimbangkan struktur dies, kondisi cutting edge, clearance, lot material, dan standar keselamatan."
+});
+
+Object.assign(I18N.zh, {
+  tabPress:"冲压",
+  pressLoadCalculator:"冲裁压力计算",
+  pressLoadInfo:"所需载荷 N = 剪切长度 mm × 板厚 mm × 剪切强度 N/mm² × 安全系数",
+  pressMaterial:"材料",
+  plateThicknessMm:"板厚 mm",
+  shearLengthMm:"坯料外周长 / 剪切长度",
+  shearLengthHelp:"被切断线的总长度，不是表面积。",
+  pressSafetyFactor:"安全系数",
+  shearStrength:"剪切强度 N/mm²",
+  requiredLoadN:"所需载荷",
+  requiredLoadKn:"所需载荷",
+  requiredTonnage:"所需吨位",
+  recommendedPressCapacity:"推荐冲压能力",
+  saveHistory:"保存到历史",
+  calculationHistory:"计算历史",
+  clearHistory:"清除",
+  noHistory:"尚无已保存的计算。",
+  restoreHistory:"恢复",
+  deleteHistory:"删除",
+  pressWarningBlanking:"此计算仅为冲孔、打孔和落料用的粗略估算。请勿用于折弯、拉深或成形加工的载荷计算。",
+  pressWarningSelection:"实际选择压力机时，请考虑模具结构、刃口状态、间隙、材料批次和安全标准。"
+});
+
 const DEFAULT_MATERIALS = {
   steel: { density: 7.85 },
   stainless: { density: 7.93 },
@@ -165,6 +237,10 @@ const $ = (id) => document.getElementById(id);
 const t = (key) => (I18N[currentLang] && I18N[currentLang][key]) || I18N.en[key] || key;
 const num = (id) => parseFloat($(id)?.value || "0") || 0;
 const fmt = (v, digits = 3) => Number.isFinite(v) ? Number(v).toLocaleString(undefined, { maximumFractionDigits: digits }) : "0";
+const on = (id, event, handler) => {
+  const el = $(id);
+  if (el) el.addEventListener(event, handler);
+};
 
 function loadJson(key, fallback) {
   try { return JSON.parse(localStorage.getItem(key)) || JSON.parse(JSON.stringify(fallback)); }
@@ -207,7 +283,6 @@ function applyLanguage() {
 function initTabs() {
   const menuToggle = $("menuToggle");
   const navMenu = $("navMenu");
-  const settingsShortcut = $("settingsShortcut");
 
   function tabLabelKey(tabName) {
     const map = {
@@ -221,6 +296,18 @@ function initTabs() {
     return map[tabName] || "tabConvert";
   }
 
+  function panelTitleKey(tabName) {
+    const map = {
+      convert: "unitConversion",
+      weight: "weightCalculator",
+      welding: "weldingTimeCalculator",
+      press: "pressLoadCalculator",
+      machining: "machiningTimeCalculator",
+      settings: "settings"
+    };
+    return map[tabName] || "unitConversion";
+  }
+
   window.setActiveTab = function(tabName) {
     document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
     const panel = $(tabName);
@@ -230,14 +317,13 @@ function initTabs() {
       item.classList.toggle("active", item.dataset.tab === tabName);
     });
 
-    $("currentTabLabel").textContent = t(tabLabelKey(tabName));
-    settingsShortcut.classList.toggle("active", tabName === "settings");
-
-    navMenu.classList.add("hidden");
-    menuToggle.setAttribute("aria-expanded", "false");
+    if ($("currentTabLabel")) $("currentTabLabel").textContent = t(tabLabelKey(tabName));
+    if ($("workspaceTitle")) $("workspaceTitle").textContent = t(panelTitleKey(tabName));
+    navMenu?.classList.add("hidden");
+    menuToggle?.setAttribute("aria-expanded", "false");
   };
 
-  menuToggle.addEventListener("click", () => {
+  menuToggle?.addEventListener("click", () => {
     const isHidden = navMenu.classList.toggle("hidden");
     menuToggle.setAttribute("aria-expanded", String(!isHidden));
   });
@@ -246,10 +332,8 @@ function initTabs() {
     btn.addEventListener("click", () => window.setActiveTab(btn.dataset.tab));
   });
 
-  settingsShortcut.addEventListener("click", () => window.setActiveTab("settings"));
-
   document.addEventListener("click", (event) => {
-    if (!navMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+    if (navMenu && menuToggle && !navMenu.contains(event.target) && !menuToggle.contains(event.target)) {
       navMenu.classList.add("hidden");
       menuToggle.setAttribute("aria-expanded", "false");
     }
@@ -784,6 +868,7 @@ function restoreHistory(record) {
 }
 
 function initHistory() {
+  if (!$("historyList") || !$("clearHistory")) return;
   renderHistory();
 
   document.querySelectorAll("[data-save-history]").forEach(btn => {
@@ -810,19 +895,19 @@ function initHistory() {
 
 async function copyText(text) { await navigator.clipboard.writeText(text); }
 function initCopyButtons() {
-  $("copyConvert").addEventListener("click", () => {
+  on("copyConvert", "click", () => {
     copyText(`${$("convertValue").value} ${$("convertFrom").selectedOptions[0].textContent} = ${$("convertResult").textContent} ${$("convertTo").selectedOptions[0].textContent}`);
   });
-  $("copyWeight").addEventListener("click", () => {
+  on("copyWeight", "click", () => {
     copyText(`${t("tabWeight")}: ${t("weightPerPiece")} ${$("weightEach").textContent}, ${t("totalWeight")} ${$("weightTotal").textContent}`);
   });
-  $("copyWelding").addEventListener("click", () => {
+  on("copyWelding", "click", () => {
     copyText(`${t("tabWelding")}: ${t("arcTimePc")} ${$("arcTimeEach").textContent}, ${t("workTimePc")} ${$("workTimeEach").textContent}, ${t("totalWorkTime")} ${$("workTimeTotal").textContent}, ${t("gasUsage")} ${$("gasUsage").textContent}, ${t("weldMetalWeight")} ${$("weldMetalWeight").textContent}, ${t("wireUsage")} ${$("wireUsage").textContent}`);
   });
-  $("copyPress").addEventListener("click", () => {
+  on("copyPress", "click", () => {
     copyText(`${t("tabPress")}: ${t("requiredLoadN")} ${$("pressLoadN").textContent}, ${t("requiredLoadKn")} ${$("pressLoadKn").textContent}, ${t("requiredTonnage")} ${$("pressTonf").textContent}, ${t("recommendedPressCapacity")} ${$("pressRecommendedTonf").textContent}`);
   });
-  $("copyMachining").addEventListener("click", () => {
+  on("copyMachining", "click", () => {
     copyText(`${t("tabMachining")}: ${$("rpmResult").textContent}, ${$("feedResult").textContent}, ${t("machiningTimePc")} ${$("machiningTimeEach").textContent}, ${t("totalMachiningTime")} ${$("machiningTimeTotal").textContent}`);
   });
 }
@@ -866,7 +951,7 @@ function initPwa() {
     deferredInstallPrompt = e;
     $("installBtn").classList.remove("hidden");
   });
-  $("installBtn").addEventListener("click", async () => {
+  $("installBtn")?.addEventListener("click", async () => {
     if (!deferredInstallPrompt) return;
     deferredInstallPrompt.prompt();
     deferredInstallPrompt = null;
@@ -881,33 +966,33 @@ function init() {
   initHistory();
   initPwa();
 
-  $("langSelect").addEventListener("change", () => {
+  on("langSelect", "change", () => {
     currentLang = $("langSelect").value;
     localStorage.setItem("lang", currentLang);
     applyLanguage();
   });
 
-  ["convertType", "convertFrom", "convertTo"].forEach(id => $(id).addEventListener("change", id === "convertType" ? renderConverterUnits : calcConvert));
-  $("convertValue").addEventListener("input", calcConvert);
+  ["convertType", "convertFrom", "convertTo"].forEach(id => on(id, "change", id === "convertType" ? renderConverterUnits : calcConvert));
+  on("convertValue", "input", calcConvert);
 
-  ["shape", "material", "qty"].forEach(id => $(id).addEventListener("change", () => {
+  ["shape", "material", "qty"].forEach(id => on(id, "change", () => {
     if (id === "shape") renderShapeInputs();
     calcWeight();
   }));
-  $("qty").addEventListener("input", calcWeight);
+  on("qty", "input", calcWeight);
 
-  ["weldLength", "weldLegLength", "weldSpeed", "weldAssistSec", "weldQty", "gasFlow", "depositionEfficiency", "reinforcementFactor", "weldMetalDensity"].forEach(id => $(id).addEventListener("input", calcWelding));
-  $("pressMaterial").addEventListener("change", () => {
+  ["weldLength", "weldLegLength", "weldSpeed", "weldAssistSec", "weldQty", "gasFlow", "depositionEfficiency", "reinforcementFactor", "weldMetalDensity"].forEach(id => on(id, "input", calcWelding));
+  on("pressMaterial", "change", () => {
     updatePressMaterial();
     calcPressLoad();
   });
   ["pressThickness", "pressShearLength", "pressSafetyFactor", "pressShearStrength"].forEach(id => {
-    $(id).addEventListener("input", calcPressLoad);
-    $(id).addEventListener("change", calcPressLoad);
+    on(id, "input", calcPressLoad);
+    on(id, "change", calcPressLoad);
   });
-  $("machiningType").addEventListener("change", renderMachiningInputs);
+  on("machiningType", "change", renderMachiningInputs);
 
-  $("saveSettings").addEventListener("click", () => {
+  on("saveSettings", "click", () => {
     document.querySelectorAll("[data-density]").forEach(input => {
       const key = input.dataset.density;
       materials[key].density = parseFloat(input.value) || materials[key].density;
@@ -917,7 +1002,7 @@ function init() {
     renderSettings();
     calcWeight();
   });
-  $("resetSettings").addEventListener("click", () => {
+  on("resetSettings", "click", () => {
     materials = JSON.parse(JSON.stringify(DEFAULT_MATERIALS));
     saveJson("materials", materials);
     initMaterialSelect();

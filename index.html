@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#1f2937">
   <link rel="icon" href="./icon.svg" type="image/svg+xml">
   <link rel="manifest" href="./manifest.json">
-  <link rel="stylesheet" href="./style.css?v=desktop-history1">
+  <link rel="stylesheet" href="./style.css?v=factory-suite1">
 </head>
 <body>
   <header class="app-header">
@@ -22,12 +22,15 @@
 
   <div class="app-shell">
     <aside class="sidebar">
+      <div class="sidebar-brand">
+        <strong data-i18n="appTitle">Factory Calc Tools</strong>
+        <span data-i18n="appSubtitle">Quick calculators for unit conversion, weight, welding time, press load, and machining time</span>
+      </div>
   <nav class="top-nav">
     <button id="menuToggle" class="nav-button menu-button" type="button" aria-expanded="false" aria-controls="navMenu">
       <span class="hamburger-icon">☰</span>
       <span id="currentTabLabel" data-i18n="tabConvert">Convert</span>
     </button>
-    <button id="settingsShortcut" class="nav-button icon-button" type="button" aria-label="Settings" data-tab="settings">⚙</button>
   </nav>
 
   <div id="navMenu" class="nav-menu hidden">
@@ -41,6 +44,11 @@
     </aside>
 
   <main class="workspace-main">
+    <div class="workspace-topbar">
+      <strong id="workspaceTitle" data-i18n="unitConversion">Unit Conversion</strong>
+      <span data-i18n="appSubtitle">Quick calculators for unit conversion, weight, welding time, press load, and machining time</span>
+    </div>
+    <div class="calculator-stage">
     <section id="convert" class="panel active">
       <div class="card">
         <div class="section-title"><h2 data-i18n="unitConversion">Unit Conversion</h2><button class="info-btn" type="button" data-i18n-tooltip="unitConversionInfo" aria-label="Info">i</button></div>
@@ -227,7 +235,7 @@
       <div class="card">
         <div class="section-title"><h2 data-i18n="settings">Settings</h2><button class="info-btn" type="button" data-i18n-tooltip="densityNote" aria-label="Info">i</button></div>
 
-        <label data-i18n="language">Language</label>
+        <label>Language</label>
         <select id="langSelect" class="lang-select" aria-label="Language">
           <option value="en">English</option>
           <option value="ja">日本語</option>
@@ -241,6 +249,7 @@
         <button id="resetSettings" class="ghost" data-i18n="resetDefaults">Reset to Defaults</button>
       </div>
     </section>
+    </div>
   </main>
 
     <aside class="history-panel" aria-labelledby="historyTitle">
@@ -253,6 +262,6 @@
   </div>
 
   <footer>GitHub Pages / PWA Ready</footer>
-  <script src="./app.js?v=desktop-history1"></script>
+  <script src="./app.js?v=factory-suite1"></script>
 </body>
 </html>

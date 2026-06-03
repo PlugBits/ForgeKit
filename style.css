@@ -894,3 +894,327 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+
+/* Factory suite visual alignment */
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  overflow: hidden;
+  background: #eef2f6;
+  color: #172033;
+}
+
+.app-header {
+  display: none;
+}
+
+.app-shell {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr) 280px;
+  gap: 0;
+  width: 100%;
+  max-width: none;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  background: #eef2f6;
+}
+
+.sidebar,
+.history-panel {
+  position: static;
+  top: auto;
+  height: 100vh;
+  max-height: none;
+  overflow: auto;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 12px;
+  background: #f8fafc;
+  border: 0;
+  border-right: 1px solid #cad3df;
+}
+
+.sidebar-brand {
+  display: grid;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+
+.sidebar-brand strong {
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.sidebar-brand span {
+  color: #64748b;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.top-nav {
+  display: none !important;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-menu,
+.nav-menu.hidden {
+  display: grid;
+  gap: 6px;
+}
+
+.menu-item {
+  min-height: 36px;
+  border: 1px solid #c7d0df;
+  border-radius: 5px;
+  background: #fff;
+  color: #172033;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 0 10px;
+}
+
+.menu-item.active {
+  border-color: #2563eb;
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.workspace-main {
+  display: grid;
+  grid-template-rows: 42px minmax(0, 1fr);
+  min-width: 0;
+  min-height: 0;
+  width: 100%;
+  padding: 0;
+}
+
+.workspace-topbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+  border-bottom: 1px solid #cad3df;
+  background: #fff;
+  padding: 0 14px;
+}
+
+.workspace-topbar strong {
+  flex: 0 0 auto;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.workspace-topbar span {
+  min-width: 0;
+  overflow: hidden;
+  color: #64748b;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.calculator-stage {
+  min-width: 0;
+  min-height: 0;
+  overflow: auto;
+  padding: 16px;
+}
+
+.panel.active {
+  display: block;
+}
+
+.card {
+  max-width: 880px;
+  min-height: auto;
+  margin: 0 auto;
+  border: 1px solid #d7dee9;
+  border-radius: 6px;
+  background: #fff;
+  box-shadow: 0 2px 12px rgba(15, 23, 42, 0.1);
+  padding: 18px;
+}
+
+.section-title {
+  border-bottom: 1px solid #e2e8f0;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+}
+
+.section-title h2 {
+  font-size: 18px;
+}
+
+label {
+  color: #475569;
+  font-size: 13px;
+  font-weight: 800;
+  margin: 10px 0 5px;
+}
+
+input,
+select {
+  min-height: 32px;
+  border: 1px solid #c7d0df;
+  border-radius: 4px;
+  padding: 5px 8px;
+  font-size: 14px;
+}
+
+.grid {
+  gap: 0 12px;
+}
+
+.result,
+.result.vertical {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 14px 0;
+}
+
+.result > div,
+.single-result {
+  border: 1px solid #dbeafe;
+  border-radius: 5px;
+  background: #eff6ff;
+  padding: 10px 12px;
+}
+
+.result span,
+.single-result span {
+  font-size: 12px;
+}
+
+.result strong,
+.single-result strong {
+  font-size: 20px;
+}
+
+.primary,
+.secondary,
+.ghost {
+  min-height: 34px;
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+.primary {
+  border: 1px solid #2563eb;
+  background: #2563eb;
+}
+
+.secondary {
+  border: 1px solid #c7d0df;
+  background: #fff;
+  color: #172033;
+}
+
+.secondary:hover,
+.ghost:hover {
+  background: #f4f7fb;
+}
+
+.advanced,
+.note-block,
+.inline-info {
+  border-radius: 5px;
+}
+
+.history-panel {
+  border: 0;
+  border-left: 1px solid #cad3df;
+  background: #f8fafc;
+  padding: 12px;
+}
+
+.history-header {
+  margin-bottom: 10px;
+}
+
+.history-header h2 {
+  font-size: 16px;
+}
+
+.history-list {
+  grid-template-columns: 1fr;
+}
+
+.history-item {
+  border: 1px solid #d7dee9;
+  border-radius: 5px;
+  box-shadow: none;
+}
+
+.history-item strong {
+  color: #1d4ed8;
+  font-size: 14px;
+}
+
+.history-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+footer {
+  display: none;
+}
+
+@media (max-width: 1100px) {
+  .app-shell {
+    grid-template-columns: 220px minmax(0, 1fr);
+  }
+
+  .history-panel {
+    display: none;
+  }
+}
+
+@media (max-width: 760px) {
+  body {
+    overflow: auto;
+  }
+
+  .app-shell {
+    grid-template-columns: 1fr;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .sidebar,
+  .history-panel {
+    height: auto;
+  }
+
+  .history-panel {
+    display: block;
+    border-left: 0;
+    border-top: 1px solid #cad3df;
+  }
+
+  .workspace-main {
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+
+  .workspace-topbar {
+    min-height: 42px;
+  }
+
+  .result,
+  .result.vertical {
+    grid-template-columns: 1fr;
+  }
+}
