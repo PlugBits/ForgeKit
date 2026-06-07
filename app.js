@@ -228,7 +228,11 @@ const PRESS_MATERIALS = {
 const HISTORY_KEY = "calculationHistory";
 const MAX_HISTORY = 50;
 
-let currentLang = localStorage.getItem("lang") || "en";
+let currentLang = (() => {
+  const urlLang = new URLSearchParams(location.search).get("lang");
+  if (urlLang && I18N[urlLang]) { localStorage.setItem("lang", urlLang); return urlLang; }
+  return localStorage.getItem("lang") || "en";
+})();
 let materials = loadJson("materials", DEFAULT_MATERIALS);
 let calcHistory = loadJson(HISTORY_KEY, []);
 let deferredInstallPrompt = null;
