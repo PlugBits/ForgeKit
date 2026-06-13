@@ -56,3 +56,7 @@ A lightweight multilingual PWA for factory calculations.
 ## PWA
 
 This app can be installed and cached for fast startup.
+
+## 関連プロジェクト
+
+[PlugBits - kintone向け業務改善ツール](https://plugbits.app)
